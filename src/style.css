@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* Определение переменных */
+@theme {
+  /* Светлая тема */
+  /* Backgrounds */
+  --color-background-primary: #f9f6f4; /* тёплый белый с кремовым подтоном (натуральное ощущение) */
+  --color-background-secondary: #ffffff; /* чистый белый */
+
+  /* Accent Colors */
+  --color-accent-primary: #c2185b; /* малина (основной акцент) */
+  --color-accent-secondary: #6a1b9a; /* черника (второстепенный акцент) */
+  --color-accent-tertiary: #ff6f00; /* облепиха/апельсин (для ярких деталей) */
+
+  /* Neutrals */
+  --color-neutral-high: #333333; /* текст (заголовки) */
+  --color-neutral-medium: #666666; /* текст (основной) */
+  --color-neutral-low: #e0e0e0; /* деликатные границы, иконки, разделители */
+
+  /* Nature Accents */
+  --color-accent-soft: #81c784; /* мягкий зелёный (листья, нотка эко) */
+  --color-accent-warm: #ffe082; /* тёплый жёлтый (мёд, уют) */
+
+  /* Тёмная тема */
+  /* Backgrounds */
+  --color-background-primary-dark: #1e1e1e; /* чуть светлее */
+  --color-background-secondary-dark: #121212; /* тёмный угольный для карточек/блоков */
+
+  /* Accent Colors */
+  --color-accent-primary-dark: #f06292; /* светлая малина */
+  --color-accent-secondary-dark: #ba68c8; /* сиренево-ягодный (глубокий акцент) */
+  --color-accent-tertiary-dark: #ff8f00; /* облепиховый/тёплый */
+
+  /* Neutrals */
+  --color-neutral-high-dark: #ffffff; /* основной текст */
+  --color-neutral-medium-dark: #cccccc; /* вторичный текст */
+  --color-neutral-low-dark: #444444; /* границы и фоновые элементы */
+
+  /* Nature Accents */
+  --color-accent-soft-dark: #aed581; /* светлый зелёный (намёк на свежесть) */
+  --color-accent-warm-dark: #ffd54f; /* мягкий янтарный (мёд, специи) */
+}
+
+/* Определение основных стилей */
+@layer base {
+  /*************************************************/
+  /* Определение классов для светлой и темной темы */
+  /*************************************************/
+  /* Светлая тема (по умолчанию) */
+  @media (prefers-color-scheme: light) {
+    body {
+      @apply bg-background-primary text-neutral-high;
+    }
+  }
+
+  /* Темная тема */
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply bg-background-primary-dark text-neutral-high-dark;
+    }
+  }
+}
