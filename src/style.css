@@ -1,7 +1,29 @@
 @import "tailwindcss";
 
+/* Подключение шрифтов */
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat/Montserrat-VariableFont_wght.ttf")
+    format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saira";
+  src: url("/fonts/saira/Saira-VariableFont_wdth,wght.ttf")
+    format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Определение переменных */
 @theme {
+  /* Шрифты */
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-saira: "Saira", sans-serif;
+
   /* Светлая тема */
   /* Задний фон */
   --color-background-primary: #faf8f6; /* тёплый молочно-белый (основной фон) */
@@ -43,7 +65,9 @@ body {
   /* Вначале используем светлую тему */
   @apply bg-background-primary text-text-primary
   /* Затем добавляем тёмную тему для поддержки dark mode */
-  dark:bg-background-primary-dark dark:text-text-primary-dark;
+  dark:bg-background-primary-dark dark:text-text-primary-dark
+  /* Устанавливаем шрифт по умолчанию */
+  font-montserrat; /* font-saira */
 }
 
 /* @TODO: Макет - удалить, когда не будет нужен */
