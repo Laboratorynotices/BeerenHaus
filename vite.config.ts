@@ -5,5 +5,5 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [vue(), tailwindcss()],
-  base: mode === "ghpages" ? "/JuJuBerryBar/" : "/",
+  base: mode === "ghpages" ? "/BeerenHaus/" : "/",
 }));
