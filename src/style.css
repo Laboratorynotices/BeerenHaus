@@ -3,60 +3,40 @@
 /* Определение переменных */
 @theme {
   /* Светлая тема */
-  /* Backgrounds */
-  --color-background-primary: #f9f6f4; /* тёплый белый с кремовым подтоном (натуральное ощущение) */
-  --color-background-secondary: #ffffff; /* чистый белый */
+  /* Задний фон */
+  --color-background-primary: #faf8f6; /* тёплый молочно-белый (основной фон) */
+  --color-background-secondary: #f2efea; /* чуть более насыщенный кремовый (второстепенные блоки, карточки) */
+
+  /* Текст */
+  --color-text-primary: #1c1c1c; /* почти чёрный для основного текста */
+  --color-text-secondary: #5b4b3b; /* тёплый коричневый для подзаголовков */
+  --color-text-tertiary: #8e1b3a; /* ягодный акцент для заголовков и выделений */
 
   /* Accent Colors */
-  --color-accent-primary: #c2185b; /* малина (основной акцент) */
-  --color-accent-secondary: #6a1b9a; /* черника (второстепенный акцент) */
-  --color-accent-tertiary: #ff6f00; /* облепиха/апельсин (для ярких деталей) */
-
-  /* Neutrals */
-  --color-neutral-high: #333333; /* текст (заголовки) */
-  --color-neutral-medium: #666666; /* текст (основной) */
-  --color-neutral-low: #e0e0e0; /* деликатные границы, иконки, разделители */
-
-  /* Nature Accents */
-  --color-accent-soft: #81c784; /* мягкий зелёный (листья, нотка эко) */
-  --color-accent-warm: #ffe082; /* тёплый жёлтый (мёд, уют) */
+  --color-accent-primary: #c72c48; /* сочная малина для акцентных линий и кнопок */
+  --color-accent-secondary: #e1d4c9; /* мягкий бежевый для рамок и разделителей */
+  --color-accent-tertiary: #88a67e; /* травяной зелёный для лёгких акцентов и hover-эффектов */
 
   /* Тёмная тема */
-  /* Backgrounds */
-  --color-background-primary-dark: #1e1e1e; /* чуть светлее */
-  --color-background-secondary-dark: #121212; /* тёмный угольный для карточек/блоков */
+  /* Задний фон */
+  --color-background-primary-dark: #1b1b1b; /* глубокий угольно-серый (основной фон) */
+  --color-background-secondary-dark: #24221f; /* тёмный оливковый оттенок (блоки и выделения) */
+
+  /* Текст */
+  --color-text-primary-dark: #ffffff; /* чисто белый для основного текста */
+  --color-text-secondary-dark: #e8c6b4; /* тёплый кремовый для подзаголовков */
+  --color-text-tertiary-dark: #f26b88; /* нежно-малиновый для акцентных заголовков */
 
   /* Accent Colors */
-  --color-accent-primary-dark: #f06292; /* светлая малина */
-  --color-accent-secondary-dark: #ba68c8; /* сиренево-ягодный (глубокий акцент) */
-  --color-accent-tertiary-dark: #ff8f00; /* облепиховый/тёплый */
-
-  /* Neutrals */
-  --color-neutral-high-dark: #ffffff; /* основной текст */
-  --color-neutral-medium-dark: #cccccc; /* вторичный текст */
-  --color-neutral-low-dark: #444444; /* границы и фоновые элементы */
-
-  /* Nature Accents */
-  --color-accent-soft-dark: #aed581; /* светлый зелёный (намёк на свежесть) */
-  --color-accent-warm-dark: #ffd54f; /* мягкий янтарный (мёд, специи) */
+  --color-accent-primary-dark: #c72c48; /* та же «сочная малина», чтобы сохранить фирменность */
+  --color-accent-secondary-dark: #5e7b57; /* мягкий зелёный для декоративных линий и иконок */
+  --color-accent-tertiary-dark: #403b36; /* глубокий кофейный для теней и рамок */
 }
 
-/* Определение основных стилей */
-@layer base {
-  /*************************************************/
-  /* Определение классов для светлой и темной темы */
-  /*************************************************/
-  /* Светлая тема (по умолчанию) */
-  @media (prefers-color-scheme: light) {
-    body {
-      @apply bg-background-primary text-neutral-high;
-    }
-  }
-
-  /* Темная тема */
-  @media (prefers-color-scheme: dark) {
-    body {
-      @apply bg-background-primary-dark text-neutral-high-dark;
-    }
-  }
+body {
+  /* Задаём цвета фона и текста */
+  /* Вначале используем светлую тему */
+  @apply bg-background-primary text-text-primary
+  /* Затем добавляем тёмную тему для поддержки dark mode */
+  dark:bg-background-primary-dark dark:text-text-primary-dark;
 }
