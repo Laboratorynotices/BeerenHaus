@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
-import { useI18n } from "vue-i18n";
 
-import { setLocale } from "./i18n";
-const { locale } = useI18n();
-
-async function switchLocale() {
-  const newLocale = locale.value === "de" ? "ru" : "de";
-  await setLocale(newLocale);
-}
+import { switchLocale } from "./i18n";
 </script>
 
 <template>
