@@ -3,5 +3,11 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    // Позволяет TypeScript импортировать JSON-файлы как модули
+    "resolveJsonModule": true,
+    // Обеспечивает совместимость с CommonJS, чтобы import JSON корректно работал с module.default
+    "esModuleInterop": true
+  }
 }

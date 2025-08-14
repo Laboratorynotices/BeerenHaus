@@ -1,0 +1,10 @@
+{
+  "blocks": [
+    {
+      "type": "hero",
+      "props": {
+        "title": "Wir machen den Welt besser!"
+      }
+    }
+  ]
+}
