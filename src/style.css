@@ -40,3 +40,8 @@ body {
   /* Затем добавляем тёмную тему для поддержки dark mode */
   dark:bg-background-primary-dark dark:text-text-primary-dark;
 }
+
+/* @TODO: Макет - удалить, когда не будет нужен */
+.mock-up {
+  @apply border p-10 mx-6 xl:mx-auto md:max-w-[1270px];
+}

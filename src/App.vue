@@ -14,7 +14,7 @@ import { switchLocale } from "./i18n";
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
-  <div>
+  <div id="tail">
     <p>{{ $t("hello") }}</p>
     <button @click="switchLocale">Switch language</button>
   </div>
