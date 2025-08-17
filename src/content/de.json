@@ -5,6 +5,30 @@
       "props": {
         "title": "Wir machen den Welt besser!"
       }
+    },
+    {
+      "type": "popular",
+      "props": {
+        "title": "Beliebte Produkte"
+      }
+    },
+    {
+      "type": "about",
+      "props": {
+        "title": "Über uns"
+      }
+    },
+    {
+      "type": "products",
+      "props": {
+        "title": "Unsere Produkte"
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "title": "Kontaktinformationen"
+      }
     }
   ]
 }

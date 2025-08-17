@@ -5,6 +5,36 @@
       "props": {
         "title": "Мы делаем мир лучше"
       }
+    },
+    {
+      "type": "popular",
+      "props": {
+        "title": "Популярные товары"
+      }
+    },
+    {
+      "type": "about",
+      "props": {
+        "title": "О нас"
+      }
+    },
+    {
+      "type": "products",
+      "props": {
+        "title": "Наши продукты"
+      }
+    },
+    {
+      "type": "contact",
+      "props": {
+        "title": "Свяжитесь с нами"
+      }
+    },
+    {
+      "type": "footer",
+      "props": {
+        "title": "Контактная информация"
+      }
     }
   ]
 }
