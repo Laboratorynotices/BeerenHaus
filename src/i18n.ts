@@ -125,13 +125,11 @@ export function getSavedLocale(): AvailableLocale {
  * 1. Находит индекс текущей локали в массиве SUPPORT_LOCALES
  * 2. Вычисляет следующий индекс с помощью модульного деления (циклический переход)
  * 3. Получает следующую локаль по вычисленному индексу
- * 4. Устанавливает новую локаль через setLocale
  *
  * Пример: de -> ru -> en -> de -> ru -> ...
  *
- * Полезно для кнопки переключения языков в UI
  */
-export async function switchLocale() {
+export function getNextLocale(): AvailableLocale {
   const newLocaleIndex =
     // Получаем индекс текущей локали в массиве SUPPORT_LOCALES
     (SUPPORT_LOCALES.indexOf(i18n.global.locale.value as AvailableLocale) +
@@ -140,10 +138,32 @@ export async function switchLocale() {
     // Модульное деление для циклического перехода
     SUPPORT_LOCALES.length;
 
-  // Получаем новую локаль по вычисленному индексу
-  const newLocale = SUPPORT_LOCALES[newLocaleIndex] as AvailableLocale;
+  // Возвращаем новую локаль по вычисленному индексу
+  return SUPPORT_LOCALES[newLocaleIndex] as AvailableLocale;
+}
+
+/**
+ * Функция для циклического переключения между поддерживаемыми локалями
+ *
+ * Вызывает getNextLocale для получения следующей локали и устанавливает её через setLocale
+ *
+ * Используется для кнопки переключения языков в UI
+ */
+export async function switchToNextLocale(): Promise<void> {
+  // Получаем следующую локаль
+  const newLocale = getNextLocale();
   // Устанавливаем новую локаль
   await setLocale(newLocale);
+}
+
+/**
+ * @deprecated Use switchToNextLocale instead.
+ */
+export async function switchLocale(): Promise<void> {
+  console.warn(
+    '"switchLocale" is deprecated, use "switchToNextLocale" instead.',
+  );
+  return switchToNextLocale();
 }
 
 /**
