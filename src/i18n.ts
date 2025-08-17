@@ -22,12 +22,131 @@ export type AvailableLocale = (typeof SUPPORT_LOCALES)[number];
  * Локаль по умолчанию для приложения
  * Установлена немецкая локаль как основная
  */
-export const DEFAULT_LOCALE: AvailableLocale = "de";
+export const DEFAULT_LOCALE: AvailableLocale = "de" as const;
 
 /**
  * Ключ для хранения выбранной локали в localStorage
  */
-const LOCALE_STORAGE_KEY = "locale";
+const LOCALE_STORAGE_KEY = "locale" as const;
+
+/**
+ * Асинхронная функция для загрузки сообщений локализации
+ *
+ * @param locale - локаль для загрузки (de, ru, en)
+ *
+ * Выполняет:
+ * 1. Динамический импорт JSON файла с переводами из папки ./locales/
+ * 2. Регистрацию загруженных сообщений в глобальном экземпляре i18n
+ *
+ * Используется динамический импорт для code splitting -
+ * переводы загружаются только когда нужны, а не все сразу
+ */
+const loadLocaleMessages = async (locale: AvailableLocale): Promise<void> => {
+  const messages = await import(`./locales/${locale}.json`);
+  i18n.global.setLocaleMessage(locale, messages.default);
+};
+
+/**
+ * Асинхронная функция для установки новой локали
+ *
+ * @param locale - локаль для установки
+ *
+ * Алгоритм работы:
+ * 1. Проверяет, загружена ли уже локаль в i18n
+ * 2. Если не загружена - загружает переводы через loadLocaleMessages
+ * 3. Устанавливает новую активную локаль в i18n
+ * 4. Сохраняет выбор пользователя в localStorage для персистентности
+ *
+ * Это обеспечивает ленивую загрузку переводов и сохранение настроек между сессиями
+ */
+export const setLocale = async (locale: AvailableLocale): Promise<void> => {
+  if (!i18n.global.availableLocales.includes(locale)) {
+    // Если локаль ещё не загружена, загружаем её
+    await loadLocaleMessages(locale);
+  }
+  i18n.global.locale.value = locale;
+
+  // Сохраняем выбранную локаль в localStorage для персистентности
+  try {
+    localStorage?.setItem(LOCALE_STORAGE_KEY, locale);
+  } catch (error) {
+    console.warn("Не удалось сохранить локаль в localStorage:", error);
+  }
+};
+
+/**
+ * Функция для получения локали из localStorage
+ *
+ * Алгоритм:
+ * 1. Читает сохранённое значение по ключу "locale"
+ * 2. Проверяет, поддерживается ли оно приложением (SUPPORT_LOCALES)
+ * 3. Если значение отсутствует или некорректно — возвращает DEFAULT_LOCALE
+ *
+ * @returns локаль из localStorage или DEFAULT_LOCALE
+ */
+export const getSavedLocale = (): AvailableLocale => {
+  try {
+    // Читаем сохранённую локаль из localStorage
+    const saved = localStorage?.getItem(LOCALE_STORAGE_KEY);
+    // Проверяем, является ли сохранённая локаль поддерживаемой
+    if (saved && SUPPORT_LOCALES.includes(saved as AvailableLocale)) {
+      // Если да, то возвращаем её как AvailableLocale
+      return saved as AvailableLocale;
+    }
+  } catch (error) {
+    console.warn("localStorage недоступен:", error);
+  }
+  // Если нет, возвращаем локаль по умолчанию
+  return DEFAULT_LOCALE;
+};
+
+/**
+ * Возвращает следующую локаль из массива SUPPORT_LOCALES
+ *
+ * Алгоритм:
+ * 1. Находит индекс текущей локали в массиве SUPPORT_LOCALES
+ * 2. Вычисляет следующий индекс с помощью модульного деления (циклический переход)
+ * 3. Получает следующую локаль по вычисленному индексу
+ *
+ * Пример: de -> ru -> en -> de -> ru -> ...
+ *
+ */
+export const getNextLocale = (): AvailableLocale => {
+  const newLocaleIndex =
+    // Получаем индекс текущей локали в массиве SUPPORT_LOCALES
+    (SUPPORT_LOCALES.indexOf(i18n.global.locale.value as AvailableLocale) +
+      // Увеличиваем индекс на 1 для перехода к следующей локали
+      1) %
+    // Модульное деление для циклического перехода
+    SUPPORT_LOCALES.length;
+
+  // Возвращаем новую локаль по вычисленному индексу
+  return SUPPORT_LOCALES[newLocaleIndex] as AvailableLocale;
+};
+
+/**
+ * Функция для циклического переключения между поддерживаемыми локалями
+ *
+ * Вызывает getNextLocale для получения следующей локали и устанавливает её через setLocale
+ *
+ * Используется для кнопки переключения языков в UI
+ */
+export const switchToNextLocale = async (): Promise<void> => {
+  // Получаем следующую локаль
+  const newLocale = getNextLocale();
+  // Устанавливаем новую локаль
+  await setLocale(newLocale);
+};
+
+/**
+ * @deprecated Use switchToNextLocale instead.
+ */
+export const switchLocale = async (): Promise<void> => {
+  console.warn(
+    '"switchLocale" is deprecated, use "switchToNextLocale" instead.',
+  );
+  return switchToNextLocale();
+};
 
 /**
  * Создание экземпляра Vue I18n для интернационализации
@@ -47,124 +166,6 @@ const i18n = createI18n({
   messages: {}, // изначально пусто
   globalInjection: true,
 });
-
-/**
- * Асинхронная функция для загрузки сообщений локализации
- *
- * @param locale - локаль для загрузки (de, ru, en)
- *
- * Выполняет:
- * 1. Динамический импорт JSON файла с переводами из папки ./locales/
- * 2. Регистрацию загруженных сообщений в глобальном экземпляре i18n
- *
- * Используется динамический импорт для code splitting -
- * переводы загружаются только когда нужны, а не все сразу
- */
-export async function loadLocaleMessages(locale: AvailableLocale) {
-  const messages = await import(`./locales/${locale}.json`);
-  i18n.global.setLocaleMessage(locale, messages.default);
-}
-
-/**
- * Асинхронная функция для установки новой локали
- *
- * @param locale - локаль для установки
- *
- * Алгоритм работы:
- * 1. Проверяет, загружена ли уже локаль в i18n
- * 2. Если не загружена - загружает переводы через loadLocaleMessages
- * 3. Устанавливает новую активную локаль в i18n
- * 4. Сохраняет выбор пользователя в localStorage для персистентности
- *
- * Это обеспечивает ленивую загрузку переводов и сохранение настроек между сессиями
- */
-export async function setLocale(locale: AvailableLocale) {
-  if (!i18n.global.availableLocales.includes(locale)) {
-    await loadLocaleMessages(locale);
-  }
-  i18n.global.locale.value = locale;
-
-  // Сохраняем выбранную локаль в localStorage для персистентности
-  try {
-    localStorage?.setItem(LOCALE_STORAGE_KEY, locale);
-  } catch (error) {
-    console.warn("Не удалось сохранить локаль в localStorage:", error);
-  }
-}
-
-/**
- * Функция для получения локали из localStorage
- *
- * Алгоритм:
- * 1. Читает сохранённое значение по ключу "locale"
- * 2. Проверяет, поддерживается ли оно приложением (SUPPORT_LOCALES)
- * 3. Если значение отсутствует или некорректно — возвращает DEFAULT_LOCALE
- *
- * @returns локаль из localStorage или DEFAULT_LOCALE
- */
-export function getSavedLocale(): AvailableLocale {
-  try {
-    // Читаем сохранённую локаль из localStorage
-    const saved = localStorage?.getItem(LOCALE_STORAGE_KEY);
-    // Проверяем, является ли сохранённая локаль поддерживаемой
-    if (saved && SUPPORT_LOCALES.includes(saved as AvailableLocale)) {
-      // Если да, то возвращаем её как AvailableLocale
-      return saved as AvailableLocale;
-    }
-  } catch (error) {
-    console.warn("localStorage недоступен:", error);
-  }
-  // Если нет, возвращаем локаль по умолчанию
-  return DEFAULT_LOCALE;
-}
-
-/**
- * Возвращает следующую локаль из массива SUPPORT_LOCALES
- *
- * Алгоритм:
- * 1. Находит индекс текущей локали в массиве SUPPORT_LOCALES
- * 2. Вычисляет следующий индекс с помощью модульного деления (циклический переход)
- * 3. Получает следующую локаль по вычисленному индексу
- *
- * Пример: de -> ru -> en -> de -> ru -> ...
- *
- */
-export function getNextLocale(): AvailableLocale {
-  const newLocaleIndex =
-    // Получаем индекс текущей локали в массиве SUPPORT_LOCALES
-    (SUPPORT_LOCALES.indexOf(i18n.global.locale.value as AvailableLocale) +
-      // Увеличиваем индекс на 1 для перехода к следующей локали
-      1) %
-    // Модульное деление для циклического перехода
-    SUPPORT_LOCALES.length;
-
-  // Возвращаем новую локаль по вычисленному индексу
-  return SUPPORT_LOCALES[newLocaleIndex] as AvailableLocale;
-}
-
-/**
- * Функция для циклического переключения между поддерживаемыми локалями
- *
- * Вызывает getNextLocale для получения следующей локали и устанавливает её через setLocale
- *
- * Используется для кнопки переключения языков в UI
- */
-export async function switchToNextLocale(): Promise<void> {
-  // Получаем следующую локаль
-  const newLocale = getNextLocale();
-  // Устанавливаем новую локаль
-  await setLocale(newLocale);
-}
-
-/**
- * @deprecated Use switchToNextLocale instead.
- */
-export async function switchLocale(): Promise<void> {
-  console.warn(
-    '"switchLocale" is deprecated, use "switchToNextLocale" instead.',
-  );
-  return switchToNextLocale();
-}
 
 /**
  * Экспорт экземпляра i18n как модуль по умолчанию
