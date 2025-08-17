@@ -83,7 +83,13 @@ export async function setLocale(locale: AvailableLocale) {
     await loadLocaleMessages(locale);
   }
   i18n.global.locale.value = locale;
-  localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+
+  // Сохраняем выбранную локаль в localStorage для персистентности
+  try {
+    localStorage?.setItem(LOCALE_STORAGE_KEY, locale);
+  } catch (error) {
+    console.warn("Не удалось сохранить локаль в localStorage:", error);
+  }
 }
 
 /**
@@ -97,12 +103,16 @@ export async function setLocale(locale: AvailableLocale) {
  * @returns локаль из localStorage или DEFAULT_LOCALE
  */
 export function getSavedLocale(): AvailableLocale {
-  // Читаем сохранённую локаль из localStorage
-  const saved = localStorage.getItem(LOCALE_STORAGE_KEY);
-  // Проверяем, является ли сохранённая локаль поддерживаемой
-  if (saved && SUPPORT_LOCALES.includes(saved as AvailableLocale)) {
-    // Если да, то возвращаем её как AvailableLocale
-    return saved as AvailableLocale;
+  try {
+    // Читаем сохранённую локаль из localStorage
+    const saved = localStorage?.getItem(LOCALE_STORAGE_KEY);
+    // Проверяем, является ли сохранённая локаль поддерживаемой
+    if (saved && SUPPORT_LOCALES.includes(saved as AvailableLocale)) {
+      // Если да, то возвращаем её как AvailableLocale
+      return saved as AvailableLocale;
+    }
+  } catch (error) {
+    console.warn("localStorage недоступен:", error);
   }
   // Если нет, возвращаем локаль по умолчанию
   return DEFAULT_LOCALE;
