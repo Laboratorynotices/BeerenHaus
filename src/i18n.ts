@@ -25,6 +25,11 @@ export type AvailableLocale = (typeof SUPPORT_LOCALES)[number];
 export const DEFAULT_LOCALE: AvailableLocale = "de";
 
 /**
+ * Ключ для хранения выбранной локали в localStorage
+ */
+const LOCALE_STORAGE_KEY = "locale";
+
+/**
  * Создание экземпляра Vue I18n для интернационализации
  *
  * Конфигурация:
@@ -36,7 +41,8 @@ export const DEFAULT_LOCALE: AvailableLocale = "de";
  */
 const i18n = createI18n({
   legacy: false,
-  locale: DEFAULT_LOCALE,
+  // Устанавливаем локаль по умолчанию из localStorage или DEFAULT_LOCALE
+  locale: getSavedLocale(),
   fallbackLocale: DEFAULT_LOCALE,
   messages: {}, // изначально пусто
   globalInjection: true,
@@ -77,11 +83,33 @@ export async function setLocale(locale: AvailableLocale) {
     await loadLocaleMessages(locale);
   }
   i18n.global.locale.value = locale;
-  localStorage.setItem("locale", locale);
+  localStorage.setItem(LOCALE_STORAGE_KEY, locale);
 }
 
 /**
- * Функция для циклического переключения между поддерживаемыми локалями
+ * Функция для получения локали из localStorage
+ *
+ * Алгоритм:
+ * 1. Читает сохранённое значение по ключу "locale"
+ * 2. Проверяет, поддерживается ли оно приложением (SUPPORT_LOCALES)
+ * 3. Если значение отсутствует или некорректно — возвращает DEFAULT_LOCALE
+ *
+ * @returns локаль из localStorage или DEFAULT_LOCALE
+ */
+export function getSavedLocale(): AvailableLocale {
+  // Читаем сохранённую локаль из localStorage
+  const saved = localStorage.getItem(LOCALE_STORAGE_KEY);
+  // Проверяем, является ли сохранённая локаль поддерживаемой
+  if (saved && SUPPORT_LOCALES.includes(saved as AvailableLocale)) {
+    // Если да, то возвращаем её как AvailableLocale
+    return saved as AvailableLocale;
+  }
+  // Если нет, возвращаем локаль по умолчанию
+  return DEFAULT_LOCALE;
+}
+
+/**
+ * Возвращает следующую локаль из массива SUPPORT_LOCALES
  *
  * Алгоритм:
  * 1. Находит индекс текущей локали в массиве SUPPORT_LOCALES
