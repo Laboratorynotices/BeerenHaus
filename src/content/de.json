@@ -1,25 +1,25 @@
 {
   "blocks": [
     {
-      "type": "hero",
-      "props": {
-        "title": "Wir machen den Welt besser!"
-      }
+      "type": "hero"
     },
     {
       "type": "popular",
+      "menuName": "Beliebtes",
       "props": {
         "title": "Beliebte Produkte"
       }
     },
     {
       "type": "about",
+      "menuName": "Über uns",
       "props": {
         "title": "Über uns"
       }
     },
     {
       "type": "products",
+      "menuName": "Produkte",
       "props": {
         "title": "Unsere Produkte"
       }

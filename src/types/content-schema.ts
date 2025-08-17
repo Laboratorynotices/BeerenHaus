@@ -3,14 +3,12 @@ import { z } from "zod";
 // HeroBlock
 export const HeroBlockSchema = z.object({
   type: z.literal("hero"),
-  props: z.object({
-    title: z.string(),
-  }),
 });
 
 // PopularBlock
 export const PopularBlockSchema = z.object({
   type: z.literal("popular"),
+  menuName: z.string().optional(),
   props: z.object({
     title: z.string(),
   }),
@@ -19,6 +17,7 @@ export const PopularBlockSchema = z.object({
 // AboutBlock
 export const AboutBlockSchema = z.object({
   type: z.literal("about"),
+  menuName: z.string().optional(),
   props: z.object({
     title: z.string(),
   }),
@@ -27,6 +26,7 @@ export const AboutBlockSchema = z.object({
 // ProductsBlock
 export const ProductsBlockSchema = z.object({
   type: z.literal("products"),
+  menuName: z.string().optional(),
   props: z.object({
     title: z.string(),
   }),
@@ -35,6 +35,7 @@ export const ProductsBlockSchema = z.object({
 // ContactBlock
 export const ContactBlockSchema = z.object({
   type: z.literal("contact"),
+  menuName: z.string().optional(),
   props: z.object({
     title: z.string(),
   }),

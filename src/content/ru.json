@@ -1,13 +1,11 @@
 {
   "blocks": [
     {
-      "type": "hero",
-      "props": {
-        "title": "Мы делаем мир лучше"
-      }
+      "type": "hero"
     },
     {
       "type": "popular",
+      "menuName": "Популярное",
       "props": {
         "title": "Популярные товары"
       }
@@ -20,12 +18,14 @@
     },
     {
       "type": "products",
+      "menuName": "Продукты",
       "props": {
         "title": "Наши продукты"
       }
     },
     {
       "type": "contact",
+      "menuName": "Контакты",
       "props": {
         "title": "Свяжитесь с нами"
       }

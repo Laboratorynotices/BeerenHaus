@@ -5,6 +5,8 @@ import { ContentFileSchema, type ContentFile } from "../types/content-schema";
 import { DEFAULT_LOCALE, type AvailableLocale } from "../i18n";
 import { useI18n } from "vue-i18n";
 
+import type { MenuItem } from "../types/menu-item";
+
 /**
  * Асинхронная функция для загрузки контента по локали.
  * Если загрузка или проверка схемы не удалась, пытается загрузить DEFAULT_LOCALE.
@@ -56,8 +58,35 @@ export const useContent = () => {
     content.value = await loadContent(locale.value as AvailableLocale);
   };
 
+  /**
+   * Получает список блоков с их именами для меню
+   * Фильтрует блоки, у которых есть menuName
+   */
+  const getBlocsMenuItems = (): MenuItem[] => {
+    // Если контент ещё не загружен, возвращаем пустой массив
+    if (!content.value) {
+      return [];
+    }
+
+    const menuItems: MenuItem[] = content.value.blocks
+      // Фильтруем блоки, у которых есть menuName
+      .filter(
+        (block): block is typeof block & { menuName: string } =>
+          typeof (block as any).menuName === "string" &&
+          (block as any).menuName.trim() !== "",
+      )
+      // Извлекаем тип и menuName
+      .map((block) => ({
+        type: block.type,
+        menuName: (block as any).menuName,
+      }));
+
+    return menuItems;
+  };
+
   return {
     content,
     fetchContent,
+    getBlocsMenuItems,
   };
 };

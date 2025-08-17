@@ -1,31 +1,32 @@
 {
   "blocks": [
     {
-      "type": "hero",
-      "props": {
-        "title": "We make the World better!"
-      }
+      "type": "hero"
     },
     {
       "type": "popular",
+      "menuName": "Popular",
       "props": {
         "title": "Popular Products"
       }
     },
     {
       "type": "about",
+      "menuName": "About",
       "props": {
         "title": "About Us"
       }
     },
     {
       "type": "products",
+      "menuName": "Products",
       "props": {
-        "title": "Наши продукты"
+        "title": "Our Products"
       }
     },
     {
       "type": "contact",
+      "menuName": "Contact",
       "props": {
         "title": "Contact Us"
       }
