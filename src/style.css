@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* ======== Прочие CSS переменные ======== */
+:root {
+  /* Максимальная ширина сайта */
+  --content-max-width: 1220px;
+}
+
 /* Подключение шрифтов */
 @font-face {
   font-family: "Montserrat";
@@ -67,6 +73,8 @@
   --color-accent-tertiary-dark: #403b36; /* глубокий кофейный для теней и рамок */
 }
 
+/* ======== Общие стили для всего приложения ====== */
+
 html {
   /* Плавное прокручивание при якорных ссылках. */
   @apply scroll-smooth;
@@ -82,7 +90,28 @@ body {
   font-montserrat; /* font-saira */
 }
 
+/* ======== Переиспользуемые классы ======== */
+.wrap-container {
+  @apply max-w-[var(--content-max-width)] mx-auto px-6;
+}
+
+/* ======== Стили компонентов ======== */
+.header {
+  @apply bg-accent-tertiary dark:bg-accent-tertiary-dark
+  /* Приклеиваем к верху экрана */
+  fixed w-full left-0 top-0;
+
+  & .wrap-container {
+    @apply flex justify-between;
+  }
+}
+
+main {
+}
+
+/* ======== Удаляемые стили ======== */
+
 /* @TODO: Макет - удалить, когда не будет нужен */
 .mock-up {
-  @apply border p-10 mx-6 xl:mx-auto md:max-w-[1270px];
+  @apply border p-10 mx-6 xl:mx-auto max-w-[var(--content-max-width)];
 }

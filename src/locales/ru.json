@@ -1,3 +1,7 @@
 {
-  "hello": "Привет"
+  "hello": "Привет",
+  "Go to main page": "Перейти на главную страницу",
+  "Open menu": "Открыть меню",
+  "Main navigation": "Главная навигация",
+  "Switch language": "Сменить язык"
 }
