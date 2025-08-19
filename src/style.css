@@ -104,7 +104,18 @@ body {
   & .wrap-container {
     @apply flex justify-between items-center;
 
+    & .header__toggle {
+      @apply flex flex-col justify-between place-items-end order-1
+      w-7.5 h-7.5 overflow-hidden focus:outline-none md:hidden z-20;
+
+      & span {
+        @apply h-0.5 bg-text-primary dark:bg-text-primary-dark rounded-sm duration-300;
+      }
+    }
+
     & .header__lang-switcher {
+      @apply block;
+
       & img {
         @apply w-[clamp(1.5rem,3vw,2.5rem)]
         h-[clamp(1.125rem,2.2vw,1.875rem)];

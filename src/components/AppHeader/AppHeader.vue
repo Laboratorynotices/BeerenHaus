@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SwitchLocale from "./SwitchLocale.vue";
+import BurgerButton from "./BurgerButton.vue";
 </script>
 
 <template>
@@ -13,9 +14,8 @@ import SwitchLocale from "./SwitchLocale.vue";
         >BeerenHaus</a
       >
 
-      <button class="header__toggle" :aria-label="$t('Open menu')">
-        <!-- иконка бургера -->B
-      </button>
+      <!-- Кнопка-бургер для мобильного меню -->
+      <BurgerButton ref="burgerButton" :isOpen="false" />
 
       <nav class="header__nav" :aria-label="$t('Main navigation')">M</nav>
 
