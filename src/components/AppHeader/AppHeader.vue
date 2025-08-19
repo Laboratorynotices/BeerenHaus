@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import SwitchLocale from "./SwitchLocale.vue";
 import BurgerButton from "./BurgerButton.vue";
+import NavLinks from "./NavLinks.vue";
+import SwitchLocale from "./SwitchLocale.vue";
 </script>
 
 <template>
@@ -17,7 +18,8 @@ import BurgerButton from "./BurgerButton.vue";
       <!-- Кнопка-бургер для мобильного меню -->
       <BurgerButton ref="burgerButton" :isOpen="false" />
 
-      <nav class="header__nav" :aria-label="$t('Main navigation')">M</nav>
+      <!-- Навигационные ссылки -->
+      <NavLinks :hideMenu="false" :isMobile="false" :isMenuOpen="false" />
 
       <!-- Переключатель локали -->
       <SwitchLocale />

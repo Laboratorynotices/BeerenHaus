@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { ContentFileSchema, type ContentFile } from "../types/content-schema";
 
 // Работаем с локализацией
@@ -6,6 +6,9 @@ import { DEFAULT_LOCALE, type AvailableLocale } from "../i18n";
 import { useI18n } from "vue-i18n";
 
 import type { MenuItem } from "../types/menu-item";
+
+// Храним загруженный контент
+const content = ref<ContentFile | null>(null);
 
 /**
  * Асинхронная функция для загрузки контента по локали.
@@ -49,7 +52,6 @@ const loadContent = async (
 
 export const useContent = () => {
   const { locale } = useI18n();
-  const content = ref<ContentFile | null>(null);
 
   /**
    * Загружает контент для переданной локали
@@ -62,31 +64,37 @@ export const useContent = () => {
    * Получает список блоков с их именами для меню
    * Фильтрует блоки, у которых есть menuName
    */
-  const getBlocsMenuItems = (): MenuItem[] => {
+  const menuItems = computed<MenuItem[]>(() => {
     // Если контент ещё не загружен, возвращаем пустой массив
-    if (!content.value) {
-      return [];
-    }
+    if (!content.value) return [];
+    return (
+      content.value.blocks
+        // Фильтруем блоки, у которых есть menuName
+        .filter(
+          (block): block is typeof block & { menuName: string } =>
+            typeof (block as any).menuName === "string" &&
+            (block as any).menuName.trim() !== "",
+        )
+        // Извлекаем тип и menuName
+        .map((block) => ({
+          type: block.type,
+          menuName: (block as any).menuName,
+        }))
+    );
+  });
 
-    const menuItems: MenuItem[] = content.value.blocks
-      // Фильтруем блоки, у которых есть menuName
-      .filter(
-        (block): block is typeof block & { menuName: string } =>
-          typeof (block as any).menuName === "string" &&
-          (block as any).menuName.trim() !== "",
-      )
-      // Извлекаем тип и menuName
-      .map((block) => ({
-        type: block.type,
-        menuName: (block as any).menuName,
-      }));
-
+  /**
+   * @deprecated Use menuItems instead.
+   */
+  const getBlocsMenuItems = () => {
+    console.warn('"getBlocsMenuItems" is deprecated, use "menuItems" instead.');
     return menuItems;
   };
 
   return {
     content,
     fetchContent,
+    menuItems,
     getBlocsMenuItems,
   };
 };
