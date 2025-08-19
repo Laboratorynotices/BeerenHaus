@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import SwitchLocale from "./SwitchLocale.vue";
+</script>
+
 <template>
   <header class="header" id="header">
     <div class="wrap-container">
@@ -15,9 +19,8 @@
 
       <nav class="header__nav" :aria-label="$t('Main navigation')">M</nav>
 
-      <div class="header__lang-switcher" :aria-label="$t('Switch language')">
-        L
-      </div>
+      <!-- Переключатель локали -->
+      <SwitchLocale />
     </div>
   </header>
 </template>
