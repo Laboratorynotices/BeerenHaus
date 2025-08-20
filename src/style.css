@@ -147,10 +147,6 @@ body {
       /* Плавно анимируй изменение свойства top в течение 0.4 секунды */
       transition-[top] duration-[0.4s];
 
-      /* Мобильная версия */
-      &.mobile-version {
-      }
-
       & .nav__list {
         @apply flex flex-col md:flex-row
         gap-y-8 md:gap-x-16

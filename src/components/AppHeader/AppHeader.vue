@@ -28,8 +28,6 @@ const menuController = useMenuController();
 
       <!-- Навигационные ссылки -->
       <NavLinks
-        :hideMenu="menuController.hideMenu.value"
-        :isMobile="menuController.isMobile.value"
         :isMenuOpen="menuController.isMenuOpen.value"
         @link-clicked="menuController.closeMenu"
       />
