@@ -119,12 +119,26 @@ body {
 .header {
   @apply bg-accent-tertiary dark:bg-accent-tertiary-dark
   /* Приклеиваем к верху экрана */
-  fixed w-full left-0 top-0;
+  fixed w-full left-0 top-0
+  py-7
+  /* анимация тени */
+  transition-shadow duration-[0.4s] ease-[ease];
 
   & .wrap-container {
     @apply flex justify-between items-center;
 
     /* Переход между мобильной версией и обычной: md */
+
+    & .header__logo {
+      @apply font-saira font-[var(--font-medium)]
+      transition-[top] duration-[0.4s]
+      uppercase;
+
+      /* Стили для hover */
+      &:hover {
+        @apply text-accent-primary dark:text-accent-primary-dark;
+      }
+    }
 
     & .header__toggle {
       @apply flex flex-col justify-between place-items-end order-1
@@ -183,6 +197,10 @@ body {
         h-[clamp(1.125rem,2.2vw,1.875rem)];
       }
     }
+  }
+
+  &.shadow {
+    @apply shadow-lg/40 dark:shadow-lg/40;
   }
 }
 

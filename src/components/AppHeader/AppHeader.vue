@@ -1,4 +1,12 @@
 <script setup lang="ts">
+/*
+  В родительском компоненте используется ref для указания на сам <header>,
+  чтобы можно было получить его высоту и установить отступы для main.
+  Здесь мы создаём ссылку на этот элемент ref="root"
+  и делаем её доступной для родителя.
+*/
+import { ref } from "vue";
+
 import BurgerButton from "./BurgerButton.vue";
 import NavLinks from "./NavLinks.vue";
 import SwitchLocale from "./SwitchLocale.vue";
@@ -6,10 +14,18 @@ import SwitchLocale from "./SwitchLocale.vue";
 // Используем композабл для управления меню
 import { useMenuController } from "../../composables/useMenuController.ts";
 const menuController = useMenuController();
+
+// указываем ссылку на сам <header>
+const root = ref<HTMLElement | null>(null);
+
+// делаем её доступной для родителя
+defineExpose({
+  root,
+});
 </script>
 
 <template>
-  <header class="header" id="header">
+  <header ref="root" class="header" id="header">
     <div class="wrap-container">
       <!-- Логотип -->
       <a
