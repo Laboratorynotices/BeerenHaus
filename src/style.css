@@ -4,6 +4,9 @@
 :root {
   /* Максимальная ширина сайта */
   --content-max-width: 1220px;
+
+  --width-burger-button: 1.875rem;
+  --height-burger-button: 1.875rem;
 }
 
 /* Подключение шрифтов */
@@ -71,6 +74,20 @@
   --color-accent-primary-dark: #c72c48; /* та же «сочная малина», чтобы сохранить фирменность */
   --color-accent-secondary-dark: #5e7b57; /* мягкий зелёный для декоративных линий и иконок */
   --color-accent-tertiary-dark: #403b36; /* глубокий кофейный для теней и рамок */
+
+  /*========== Шрифт и типография ==========*/
+  --text-biggest-size: 4.5rem;
+  --text-big-size: 2.5rem;
+  --text-hl-size: 1.5rem;
+  --text-h2-size: 1.25rem;
+  --text-h3-size: 1rem;
+  --text-normal-size: 0.938rem;
+  --text-small-size: 0.813rem;
+
+  /*========== Толщина шрифта ==========*/
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
 }
 
 /* ======== Общие стили для всего приложения ====== */
@@ -91,6 +108,9 @@ body {
 }
 
 /* ======== Переиспользуемые классы ======== */
+/* Контейнер для обёртки контента 
+@TODO Заменить на .container от Tailwind?
+*/
 .wrap-container {
   @apply max-w-[var(--content-max-width)] mx-auto px-6;
 }
@@ -104,12 +124,58 @@ body {
   & .wrap-container {
     @apply flex justify-between items-center;
 
+    /* Переход между мобильной версией и обычной: md */
+
     & .header__toggle {
       @apply flex flex-col justify-between place-items-end order-1
-      w-7.5 h-7.5 overflow-hidden focus:outline-none md:hidden z-20;
+      w-[var(--width-burger-button)] h-[var(--height-burger-button)]
+      overflow-hidden focus:outline-none md:hidden z-20;
 
       & span {
         @apply h-0.5 bg-text-primary dark:bg-text-primary-dark rounded-sm duration-300;
+      }
+    }
+
+    & .header__nav {
+      @apply fixed md:static
+      /* top-0 top-[-120%] */ left-0
+      w-full md:w-auto
+      py-16 md:py-0
+      shadow-lg/40 md:shadow-none
+      /* Закрашиваем задний фон */
+      bg-accent-tertiary dark:bg-accent-tertiary-dark
+      /* Плавно анимируй изменение свойства top в течение 0.4 секунды */
+      transition-[top] duration-[0.4s];
+
+      /* Мобильная версия */
+      &.mobile-version {
+      }
+
+      & .nav__list {
+        @apply flex flex-col md:flex-row
+        gap-y-8 md:gap-x-16
+        text-center;
+
+        & .nav__item {
+          & .nav__link {
+            /* Типографика */
+            @apply leading-[110%] uppercase font-saira font-[var(--font-medium)]
+            text-hl-size md:text-normal-size
+            /* Плавно анимируй изменение свойства color в течение 0.4 секунды */
+            transition-[color] duration-[0.4s]
+            text-text-primary dark:text-text-primary-dark;
+
+            /* Стили для активной ссылки */
+            &.active-link {
+              @apply text-text-secondary dark:text-text-secondary-dark;
+            }
+
+            /* Стили для hover */
+            &:hover {
+              @apply text-accent-primary dark:text-accent-primary-dark;
+            }
+          }
+        }
       }
     }
 
