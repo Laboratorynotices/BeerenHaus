@@ -62,25 +62,33 @@ export const useContent = () => {
 
   /**
    * Получает список блоков с их именами для меню
-   * Фильтрует блоки, у которых есть menuName
+   * Фильтрует блоки, у которых есть menuName,
+   * извлекает тип и menuName,
+   * и добавляет "Home" в начало списка.
    */
   const menuItems = computed<MenuItem[]>(() => {
+    // Самый первый элемент меню — это "Home"
+    // Это нужно для того, чтобы всегда был доступ к главной странице
+    const HOME_ITEM: MenuItem = { type: "app", menuName: "Home" };
+
     // Если контент ещё не загружен, возвращаем пустой массив
     if (!content.value) return [];
-    return (
-      content.value.blocks
-        // Фильтруем блоки, у которых есть menuName
-        .filter(
-          (block): block is typeof block & { menuName: string } =>
-            typeof (block as any).menuName === "string" &&
-            (block as any).menuName.trim() !== "",
-        )
-        // Извлекаем тип и menuName
-        .map((block) => ({
-          type: block.type,
-          menuName: (block as any).menuName,
-        }))
-    );
+
+    const items = content.value.blocks
+      // Фильтруем блоки, у которых есть menuName
+      .filter(
+        (block): block is typeof block & { menuName: string } =>
+          typeof (block as any).menuName === "string" &&
+          (block as any).menuName.trim() !== "",
+      )
+      // Извлекаем тип и menuName
+      .map((block) => ({
+        type: block.type,
+        menuName: (block as any).menuName,
+      }));
+
+    // Добавляем "Home" в начало списка
+    return [HOME_ITEM, ...items];
   });
 
   /**

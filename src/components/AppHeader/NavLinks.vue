@@ -32,7 +32,8 @@ defineProps({
           class="nav__link"
           :class="id === 0 ? 'active-link' : ''"
         >
-          {{ item.menuName }}
+          <!-- Если это "Home", используем перевод, иначе просто имя меню -->
+          {{ item.menuName == "Home" ? $t("Home") : item.menuName }}
         </a>
       </li>
     </ul>
