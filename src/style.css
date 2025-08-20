@@ -190,7 +190,7 @@ body {
     }
 
     & .header__lang-switcher {
-      @apply block;
+      @apply block cursor-pointer;
 
       & img {
         @apply w-[clamp(1.5rem,3vw,2.5rem)]
