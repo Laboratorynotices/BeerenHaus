@@ -52,6 +52,7 @@ export const FooterBlockSchema = z.object({
 // ... другие блоки
 
 // Объединение всех типов блоков
+// PageBlockSchema
 const BlockSchema = z.union([
   HeroBlockSchema,
   PopularBlockSchema,
@@ -61,10 +62,15 @@ const BlockSchema = z.union([
   FooterBlockSchema,
 ]);
 
+// Автоматически выводим TS-тип из схемы
+export type PageBlock = z.infer<typeof BlockSchema>;
+
 // Файл контента
+// PageContentFileSchema
 export const ContentFileSchema = z.object({
   blocks: z.array(BlockSchema),
 });
 
 // Автоматически выводим TS-тип из схемы
+// PageContentFile
 export type ContentFile = z.infer<typeof ContentFileSchema>;

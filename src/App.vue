@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watchEffect } from "vue";
+import {
+  computed,
+  defineAsyncComponent,
+  onMounted,
+  onUnmounted,
+  ref,
+  watchEffect,
+} from "vue";
 
 import AppHeader from "./components/AppHeader/AppHeader.vue";
 
@@ -61,6 +68,26 @@ const headerShadow = (): void => {
   }
 };
 
+// Карта асинхронных компонентов
+// Здесь можно добавить динамическую загрузку компонентов по типу блока
+const componentsMap: Record<string, () => Promise<any>> = {};
+
+// Добавляем компонент по умолчанию
+const fallback = () => import("./components/Fallback.vue");
+
+// Добавляем компоненты по типам блоков
+const asyncComponents = computed(() => {
+  if (!content.value?.blocks) return [];
+
+  return content.value.blocks.map((block, index) => ({
+    id: `${block.type}-${index}`, // уникальный ключ
+    type: block.type,
+    menuName: "menuName" in block ? block.menuName : undefined,
+    props: "props" in block ? block.props : undefined,
+    component: defineAsyncComponent(componentsMap[block.type] ?? fallback),
+  }));
+});
+
 onMounted(() => {
   // Первый расчёт
   updateMainMarginTop();
@@ -85,19 +112,18 @@ watchEffect(async () => {
 
 <template>
   <AppHeader ref="header" id="header" />
+
   <main ref="main">
-    <div
-      v-for="(oneBlock, id) in content?.blocks"
+    <component
+      v-for="(block, id) in asyncComponents"
       :key="id"
-      class="mock-up"
-      :id="oneBlock.type"
+      :block="block"
+      :is="block.component"
+      :id="block.type + id"
       role="region"
-      :aria-label="`Block of type ${oneBlock.type}`"
+      :aria-label="`Block of type ${block.type}`"
       :aria-describedby="`desc-${id}`"
-    >
-      <p :id="`desc-${id}`">{{ oneBlock.type || JSON.stringify(oneBlock) }}</p>
-      {{ oneBlock }}
-    </div>
+    />
   </main>
 
   <!-- @TODO: Этот якорь удалить по окончании разработки -->
