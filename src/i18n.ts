@@ -136,6 +136,8 @@ export const switchToNextLocale = async (): Promise<void> => {
   const newLocale = getNextLocale();
   // Устанавливаем новую локаль
   await setLocale(newLocale);
+  // Обновляем атрибут lang на элементе <html> для корректной семантики
+  document.documentElement.lang = newLocale;
 };
 
 /**
