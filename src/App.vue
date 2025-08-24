@@ -11,7 +11,7 @@ import {
 import AppHeader from "./components/AppHeader/AppHeader.vue";
 
 // Работаем с локализацией
-import { switchToNextLocale } from "./i18n";
+import { switchToNextLocale, getSavedLocale } from "./i18n";
 
 // Импортируем функции для работы с контентом
 import { useContent } from "./composables/useContent";
@@ -96,6 +96,9 @@ onMounted(() => {
   window.addEventListener("resize", updateMainMarginTop);
   // Подписка на scroll
   window.addEventListener("scroll", headerShadow);
+
+  // Устанавливаем атрибут lang на элементе <html> для корректной семантики
+  document.documentElement.lang = getSavedLocale();
 });
 
 // Удаляем обработчики событий при размонтировании
