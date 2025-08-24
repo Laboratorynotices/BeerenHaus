@@ -1,7 +1,12 @@
 {
   "blocks": [
     {
-      "type": "hero"
+      "type": "hero",
+      "props": {
+        "title": "Frische Beeren",
+        "description": "Genießen Sie natürliche, frisch geerntete Beeren aus nachhaltigen Stadtfarmen. Direkt zu Ihnen nach Hause geliefert – gesund, ökologisch und lecker.",
+        "anchor": "about2"
+      }
     },
     {
       "type": "popular",

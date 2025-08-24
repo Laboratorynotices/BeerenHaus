@@ -70,7 +70,10 @@ const headerShadow = (): void => {
 
 // Карта асинхронных компонентов
 // Здесь можно добавить динамическую загрузку компонентов по типу блока
-const componentsMap: Record<string, () => Promise<any>> = {};
+const componentsMap: Record<string, () => Promise<any>> = {
+  hero: () => import("./components/HeroSection/HeroSection.vue"),
+  // Добавьте другие компоненты по мере необходимости
+};
 
 // Добавляем компонент по умолчанию
 const fallback = () => import("./components/Fallback.vue");

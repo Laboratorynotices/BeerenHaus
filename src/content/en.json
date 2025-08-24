@@ -1,7 +1,12 @@
 {
   "blocks": [
     {
-      "type": "hero"
+      "type": "hero",
+      "props": {
+        "title": "Fresh Berries",
+        "description": "Enjoy natural, freshly harvested berries from sustainable city farms. Delivered straight to your home – healthy, eco-friendly, delicious, always full of freshness.",
+        "anchor": "about2"
+      }
     },
     {
       "type": "popular",

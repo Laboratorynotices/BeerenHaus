@@ -1,9 +1,24 @@
 import { z } from "zod";
 
+// HeroBlock props
+export const HeroBlockPropsSchema = z.object({
+  // Заголовок блока Hero
+  title: z.string(),
+  // Описание блока Hero
+  description: z.string(),
+  // Якорная ссылка для перехода к другому блоку
+  anchor: z.string().optional(),
+});
+
+export type HeroBlockProps = z.infer<typeof HeroBlockPropsSchema>;
+
 // HeroBlock
 export const HeroBlockSchema = z.object({
   type: z.literal("hero"),
+  props: HeroBlockPropsSchema,
 });
+
+export type HeroBlock = z.infer<typeof HeroBlockSchema>;
 
 // PopularBlock
 export const PopularBlockSchema = z.object({
