@@ -123,9 +123,6 @@ watchEffect(async () => {
       :block="block"
       :is="block.component"
       :id="block.type + id"
-      role="region"
-      :aria-label="`Block of type ${block.type}`"
-      :aria-describedby="`desc-${id}`"
     />
   </main>
 
