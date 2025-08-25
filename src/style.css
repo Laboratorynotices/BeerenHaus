@@ -108,6 +108,13 @@ body {
   font-montserrat; /* font-saira */
 }
 
+h1,
+h2,
+h3,
+h4 {
+  @apply font-saira leading-[110%];
+}
+
 /* ======== Переиспользуемые классы ======== */
 /* Контейнер для обёртки контента 
 @TODO Заменить на .container от Tailwind?
@@ -118,6 +125,10 @@ body {
 
 .section {
   @apply py-20;
+
+  &:first-of-type {
+    @apply pt-10;
+  }
 }
 
 /*
