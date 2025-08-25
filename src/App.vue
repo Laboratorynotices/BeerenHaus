@@ -8,6 +8,7 @@ import {
   watchEffect,
 } from "vue";
 
+// Импортируем шапку приложения
 import AppHeader from "./components/AppHeader/AppHeader.vue";
 
 // Работаем с локализацией
