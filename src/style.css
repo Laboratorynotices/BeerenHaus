@@ -78,7 +78,8 @@
   /*========== Шрифт и типография ==========*/
   --text-biggest-size-desktop: 4.5rem;
   --text-biggest-size: 3.5rem;
-  --text-big-size: 2.5rem;
+  --text-big-size-desktop: 2.5rem;
+  --text-big-size: 2rem;
   --text-hl-size: 1.5rem;
   --text-h2-size: 1.25rem;
   --text-h3-size: 1rem;
@@ -112,7 +113,7 @@ h1,
 h2,
 h3,
 h4 {
-  @apply font-saira leading-[110%];
+  @apply font-saira font-[number:var(--font-medium)] leading-[110%];
 }
 
 /* ======== Переиспользуемые классы ======== */
@@ -128,6 +129,25 @@ h4 {
 
   &:first-of-type {
     @apply pt-10;
+  }
+}
+
+.section__title {
+  @apply text-big-size md:text-big-size-desktop
+  uppercase text-center
+  font-[var(--font-semi-bold)]
+  mb-10;
+}
+
+.button {
+  @apply inline-flex
+  py-4 px-8 font-[var(--font-semi-bold)]
+  bg-background-secondary dark:bg-background-secondary-dark
+  transition-colors transition-shadow duration-400;
+
+  &:hover {
+    @apply bg-background-primary dark:bg-background-primary-dark
+    shadow-sm/40;
   }
 }
 
@@ -148,7 +168,9 @@ h4 {
   Родительские элементы для псевдоклассов
   должны быть задаными с относительным позиционированием
 */
-*:has(> .shaped) {
+*:has(> .shaped),
+.shaped,
+.shaped img {
   @apply relative;
 }
 
@@ -359,16 +381,79 @@ h4 {
       & .hero__description {
         @apply mt-10 mb-6;
       }
+    }
+  }
+}
 
-      & .button {
-        @apply inline-flex
-      py-4 px-8 font-[var(--font-semi-bold)]
-      bg-background-secondary dark:bg-background-secondary-dark
-      transition-colors transition-shadow duration-400;
+.popular {
+  & .wrap-container {
+    & .popular__swiper {
+      & .swiper-wrapper {
+        & .popular__card {
+          @apply text-center;
 
-        &:hover {
-          @apply bg-background-primary dark:bg-background-primary-dark
-        shadow-sm/40;
+          &:hover .popular__images .deco1 {
+            &::before {
+              @apply translate-x-[100%] translate-y-[50%];
+            }
+
+            &::after {
+              @apply -translate-x-[30%] -translate-y-[10%];
+            }
+          }
+
+          & .popular__images {
+            &::before {
+              @apply bg-accent-tertiary dark:bg-accent-tertiary-dark;
+            }
+
+            & .deco1 {
+              &::before {
+                @apply content-[""] block
+                absolute bottom-1/12 right-1/7
+                /* Задаём размеры изображения */
+                w-[10%] aspect-[1_/_1.5]
+                -rotate-30 blur-[2px]
+                bg-[url(/src/assets/imgs/popular/leaf.png)]
+                bg-no-repeat bg-cover bg-center
+                transition-transform duration-[0.5s] delay-[0.1s];
+
+                &:hover {
+                  @apply right-1/14;
+                }
+              }
+
+              &::after {
+                @apply content-[""] block
+                absolute top-1/7 left-1/30
+                /* Задаём размеры изображения */
+                w-[15%] aspect-[1_/_1.5]
+                /* Центрируем изображение */
+                rotate-30
+                bg-[url(/src/assets/imgs/popular/leaf.png)]
+                bg-no-repeat bg-cover bg-center
+                transition-transform duration-[0.5s] delay-[0.1s];
+
+                &:hover {
+                  @apply top-1/5 left-1/60;
+                }
+              }
+            }
+
+            & .popular__img {
+              @apply w-3/5 mx-auto;
+            }
+          }
+
+          & .popular__data {
+            & .popular__name {
+              @apply uppercase mb-2;
+            }
+
+            & .popular__description {
+              @apply mb-6;
+            }
+          }
         }
       }
     }

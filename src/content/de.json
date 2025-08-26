@@ -12,7 +12,28 @@
       "type": "popular",
       "menuName": "Beliebtes",
       "props": {
-        "title": "Beliebte Produkte"
+        "title": "Beliebte Produkte",
+        "anchor": "",
+        "products": [
+          {
+            "name": "Erdbeeren",
+            "image": "strawberries.png",
+            "description": "Saftige und süße Erdbeeren, perfekt für Desserts und Snacks.",
+            "price": 19.9
+          },
+          {
+            "name": "Blaubeeren",
+            "image": "blueberries.png",
+            "description": "Frische Blaubeeren, reich an Antioxidantien und Geschmack.",
+            "price": 24.5
+          },
+          {
+            "name": "Himbeeren",
+            "image": "raspberries.png",
+            "description": "Leckere Himbeeren, ideal für Smoothies und zum Backen.",
+            "price": 22.0
+          }
+        ]
       }
     },
     {

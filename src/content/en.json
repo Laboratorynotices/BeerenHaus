@@ -12,7 +12,28 @@
       "type": "popular",
       "menuName": "Popular",
       "props": {
-        "title": "Popular Products"
+        "title": "Popular Products",
+        "anchor": "contact4",
+        "products": [
+          {
+            "name": "Strawberries",
+            "image": "strawberries.png",
+            "description": "Juicy and sweet strawberries, perfect for desserts and snacks.",
+            "price": 19.9
+          },
+          {
+            "name": "Blueberries",
+            "image": "blueberries.png",
+            "description": "Fresh blueberries, rich in antioxidants and flavor.",
+            "price": 24.5
+          },
+          {
+            "name": "Raspberries",
+            "image": "raspberries.png",
+            "description": "Delicious raspberries, great for smoothies and baking.",
+            "price": 22.0
+          }
+        ]
       }
     },
     {

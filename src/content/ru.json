@@ -12,7 +12,28 @@
       "type": "popular",
       "menuName": "Популярное",
       "props": {
-        "title": "Популярные товары"
+        "title": "Популярные товары",
+        "anchor": "contact4",
+        "products": [
+          {
+            "name": "Клубника",
+            "image": "strawberries.png",
+            "description": "Сочная и сладкая клубника, идеально подходит для десертов и перекусов.",
+            "price": 19.9
+          },
+          {
+            "name": "Черника",
+            "image": "blueberries.png",
+            "description": "Свежая черника, богатая антиоксидантами и вкусом.",
+            "price": 24.5
+          },
+          {
+            "name": "Малина",
+            "image": "raspberries.png",
+            "description": "Вкусная малина, отлично подходит для смузи и выпечки.",
+            "price": 22.0
+          }
+        ]
       }
     },
     {

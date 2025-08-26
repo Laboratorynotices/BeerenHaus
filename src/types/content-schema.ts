@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-// HeroBlock props
+// ==========================
+// HeroBlockProps - параметры блока "Hero"
+// ==========================
 export const HeroBlockPropsSchema = z.object({
   // Заголовок блока Hero
   title: z.string(),
@@ -12,7 +14,9 @@ export const HeroBlockPropsSchema = z.object({
 
 export type HeroBlockProps = z.infer<typeof HeroBlockPropsSchema>;
 
-// HeroBlock
+// ==========================
+// HeroBlock - блок "Hero"
+// ==========================
 export const HeroBlockSchema = z.object({
   type: z.literal("hero"),
   props: HeroBlockPropsSchema,
@@ -20,16 +24,60 @@ export const HeroBlockSchema = z.object({
 
 export type HeroBlock = z.infer<typeof HeroBlockSchema>;
 
-// PopularBlock
-export const PopularBlockSchema = z.object({
-  type: z.literal("popular"),
-  menuName: z.string().optional(),
-  props: z.object({
-    title: z.string(),
-  }),
+// ==========================
+// PopularProduct - отдельный продукт из списка популярных
+// ==========================
+export const PopularProductSchema = z.object({
+  // Название продукта
+  name: z.string(),
+
+  // Ссылка на изображение продукта
+  image: z.string(),
+
+  // Краткое описание продукта
+  description: z.string(),
+
+  // Цена продукта
+  price: z.number(),
 });
 
-// AboutBlock
+export type PopularProduct = z.infer<typeof PopularProductSchema>;
+
+// ==========================
+// PopularBlockProps - параметры блока "Популярное"
+// ==========================
+export const PopularBlockPropsSchema = z.object({
+  // Заголовок блока (например: "Популярные товары")
+  title: z.string(),
+
+  // Якорная ссылка для перехода к другому блоку
+  anchor: z.string().optional(),
+
+  // Список популярных товаров
+  products: z.array(PopularProductSchema),
+});
+
+export type PopularBlockProps = z.infer<typeof PopularBlockPropsSchema>;
+
+// ==========================
+// PopularBlock - блок "Популярное"
+// ==========================
+export const PopularBlockSchema = z.object({
+  // Тип блока всегда фиксирован как "popular"
+  type: z.literal("popular"),
+
+  // Название меню, может быть опциональным
+  menuName: z.string().optional(),
+
+  // Основные параметры блока
+  props: PopularBlockPropsSchema,
+});
+
+export type PopularBlock = z.infer<typeof PopularBlockSchema>;
+
+// ==========================
+// AboutBlock - Блок "О нас"
+// ==========================
 export const AboutBlockSchema = z.object({
   type: z.literal("about"),
   menuName: z.string().optional(),

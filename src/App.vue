@@ -73,6 +73,7 @@ const headerShadow = (): void => {
 // Здесь можно добавить динамическую загрузку компонентов по типу блока
 const componentsMap: Record<string, () => Promise<any>> = {
   hero: () => import("./components/HeroSection/HeroSection.vue"),
+  popular: () => import("./components/PopularSection/PopularSection.vue"),
   // Добавьте другие компоненты по мере необходимости
 };
 
