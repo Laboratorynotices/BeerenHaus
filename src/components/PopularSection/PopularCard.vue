@@ -26,11 +26,13 @@ const getImage = (filename: string) => {
 </script>
 
 <template>
-  <article class="popular__card swiper-slide">
+  <article class="popular__card swiper-slide" :aria-label="product.name">
     <div class="popular__images shaped">
       <div class="deco1">
         <img
           :src="getImage(product.image)"
+          :alt="$t('cap with') + ' ' + product.name"
+          role="none"
           class="popular__img"
           loading="lazy"
         />
