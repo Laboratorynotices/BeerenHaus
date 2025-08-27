@@ -71,6 +71,11 @@ export const useContent = () => {
     // Это нужно для того, чтобы всегда был доступ к главной странице
     const HOME_ITEM: MenuItem = { type: "app", menuName: "Home" };
 
+    // Поскольку на сайт можно будет помещать несколько отнотипных модулей,
+    // то их как-то надо будет различать.
+    // Вот и добавим счётчик в виде суффикса к типу блока.
+    let cointer: number = 0;
+
     // Если контент ещё не загружен, возвращаем пустой массив
     if (!content.value) return [];
 
@@ -83,7 +88,7 @@ export const useContent = () => {
       )
       // Извлекаем тип и menuName
       .map((block) => ({
-        type: block.type,
+        type: block.type + ++cointer,
         menuName: (block as any).menuName,
       }));
 
