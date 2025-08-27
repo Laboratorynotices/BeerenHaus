@@ -71,28 +71,35 @@ export const useContent = () => {
     // Это нужно для того, чтобы всегда был доступ к главной странице
     const HOME_ITEM: MenuItem = { type: "app", menuName: "Home" };
 
-    // Поскольку на сайт можно будет помещать несколько отнотипных модулей,
-    // то их как-то надо будет различать.
-    // Вот и добавим счётчик в виде суффикса к типу блока.
-    let cointer: number = 0;
-
     // Если контент ещё не загружен, возвращаем пустой массив
     if (!content.value) return [];
 
-    const items = content.value.blocks
-      // Фильтруем блоки, у которых есть menuName
-      .filter(
-        (block): block is typeof block & { menuName: string } =>
-          typeof (block as any).menuName === "string" &&
-          (block as any).menuName.trim() !== "",
-      )
-      // Извлекаем тип и menuName
-      .map((block) => ({
-        type: block.type + ++cointer,
-        menuName: (block as any).menuName,
-      }));
+    // Поскольку на сайт можно будет помещать несколько отнотипных модулей,
+    // то их как-то надо будет различать.
+    // Вот и добавим счётчик в виде суффикса к типу блока.
+    let counter: number = 0;
 
-    // Добавляем "Home" в начало списка
+    const items = content.value.blocks.reduce(
+      (acc, block) => {
+        const hasValidMenuName =
+          typeof (block as any).menuName === "string" &&
+          (block as any).menuName.trim() !== "";
+
+        if (hasValidMenuName) {
+          acc.push({
+            type: block.type + counter,
+            menuName: (block as any).menuName,
+          });
+        }
+
+        // Увеличиваем счетчик для КАЖДОГО элемента
+        counter++;
+
+        return acc;
+      },
+      [] as { type: string; menuName: string }[],
+    );
+
     return [HOME_ITEM, ...items];
   });
 
