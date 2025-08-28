@@ -76,15 +76,34 @@ export const PopularBlockSchema = z.object({
 export type PopularBlock = z.infer<typeof PopularBlockSchema>;
 
 // ==========================
+// AboutBlockProps - параметры блока "О нас"
+// ==========================
+export const AboutBlockPropsSchema = z.object({
+  // Заголовок блока (например: "О нас")
+  title: z.string(),
+
+  // Текст в блоке "О нас"
+  description: z.string(),
+
+  // Якорная ссылка для перехода к другому блоку
+  anchor: z.string().optional(),
+
+  // Надпись для кнопки с якорной ссылкой
+  buttonTitle: z.string().optional(),
+});
+
+export type AboutBlockProps = z.infer<typeof AboutBlockPropsSchema>;
+
+// ==========================
 // AboutBlock - Блок "О нас"
 // ==========================
 export const AboutBlockSchema = z.object({
   type: z.literal("about"),
   menuName: z.string().optional(),
-  props: z.object({
-    title: z.string(),
-  }),
+  props: AboutBlockPropsSchema,
 });
+
+export type AboutBlock = z.infer<typeof AboutBlockSchema>;
 
 // ProductsBlock
 export const ProductsBlockSchema = z.object({

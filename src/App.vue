@@ -74,6 +74,7 @@ const headerShadow = (): void => {
 const componentsMap: Record<string, () => Promise<any>> = {
   hero: () => import("./components/HeroSection/HeroSection.vue"),
   popular: () => import("./components/PopularSection/PopularSection.vue"),
+  about: () => import("./components/AboutSection/AboutSection.vue"),
   // Добавьте другие компоненты по мере необходимости
 };
 

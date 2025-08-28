@@ -498,6 +498,57 @@ h4 {
   }
 }
 
+.about {
+  @apply bg-accent-tertiary dark:bg-accent-tertiary-dark
+  text-center md:text-left
+  overflow-hidden;
+
+  & .wrap-container {
+    @apply flex flex-col md:flex-row
+    items-center gap-12;
+
+    & .about__data {
+      @apply md:w-full;
+
+      & .about__description {
+        @apply mb-6;
+      }
+    }
+
+    & .about__images {
+      &.shaped::before {
+        clip-path: inset(0 0 0 0);
+      }
+
+      & .about__deco1 {
+        &::before {
+          @apply content-[""] block
+          absolute top-1/12 right-1/8
+          /* Задаём размеры изображения */
+          w-[10%] aspect-[1_/_1.5]
+          -rotate-30
+          bg-[url(/src/assets/imgs/popular/leaf.png)]
+          bg-no-repeat bg-cover bg-center;
+        }
+
+        &::after {
+          @apply content-[""] block
+          absolute top-1/7 left-1/30
+          /* Задаём размеры изображения */
+          w-[15%] aspect-[1_/_1.5]
+          rotate-30
+          bg-[url(/src/assets/imgs/popular/leaf.png)]
+          bg-no-repeat bg-cover bg-center;
+        }
+
+        & .about__img {
+          @apply z-1;
+        }
+      }
+    }
+  }
+}
+
 /* ======== Удаляемые стили ======== */
 
 /* @TODO: Макет - удалить, когда не будет нужен */

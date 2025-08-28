@@ -40,7 +40,10 @@
       "type": "about",
       "menuName": "About",
       "props": {
-        "title": "About Us"
+        "title": "About Us",
+        "description": "At BeerenHaus, we bring the freshness of nature straight into the city. Our berries are grown in modern, sustainable city farms – chemical-free and full of flavor. Harvested with care and delivered quickly, we stand for healthy living, eco-friendliness, and natural quality you can truly taste.",
+        "anchor": "popular1",
+        "buttonTitle": "Popular products"
       }
     },
     {

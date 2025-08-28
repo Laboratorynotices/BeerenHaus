@@ -40,7 +40,10 @@
       "type": "about",
       "menuName": "Über uns",
       "props": {
-        "title": "Über uns"
+        "title": "Über uns",
+        "description": "Bei BeerenHaus bringen wir die Frische der Natur direkt in die Stadt. Unsere Beeren wachsen in modernen, nachhaltigen Stadtfarmen – ohne Chemie, aber voller Geschmack. Mit Liebe geerntet und schnell geliefert, stehen wir für gesunde Ernährung, Umweltbewusstsein und natürliche Qualität, die man schmeckt.",
+        "anchor": "popular1",
+        "buttonTitle": "Beliebte Produkte"
       }
     },
     {
