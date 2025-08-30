@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import ShoppingIcon from "./ShoppingIcon.vue";
 
+// Импортируем функцию для анимации при скролле
+import { useScrollAnimator } from "../../composables/useScrollAnimator";
+
 import { type RequestedProduct } from "../../types/content-schema";
 import { useNumberToPrice } from "../../composables/useNumberToPrice";
+import { onMounted } from "vue";
 const { numberToPrice } = useNumberToPrice();
 
 // Определяем пропсы
@@ -24,6 +28,19 @@ const getImage = (filename: string) => {
   );
   return entry ? (entry[1] as string) : "";
 };
+
+// Используем анимацию при скролле
+const { animate } = useScrollAnimator({
+  origin: "top",
+  distance: "60px",
+  duration: 2000,
+  delay: 300,
+});
+
+onMounted(() => {
+  // Анимируем элемент
+  animate(".product__card");
+});
 </script>
 
 <template>
