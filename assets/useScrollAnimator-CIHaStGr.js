@@ -1,0 +1,21 @@
+import{f as Y}from"./index-BWOkOIrv.js";const i={origin:"bottom",distance:"60px",duration:2e3,delay:300,reset:!1,scale:1,rotate:{x:0,y:0,z:0}};function m(t,e,r,n){let s="";switch(t){case"top":s=`translateY(-${e})`;break;case"bottom":s=`translateY(${e})`;break;case"left":s=`translateX(-${e})`;break;case"right":s=`translateX(${e})`;break;default:s=`translateY(${e})`}const $=`rotateX(${n.x}deg) rotateY(${n.y}deg) rotateZ(${n.z}deg)`;return`${s} scale(${r}) ${$}`}const b="scroll-animator-pseudo-styles";let v=!1;function E(){if(typeof document>"u"||v)return;if(document.getElementById(b)){v=!0;return}const t=document.createElement("style");t.id=b,t.textContent=`
+    [data-animate-before]::before {
+      content: "";
+      opacity: var(--before-opacity, 0);
+      transform: var(--before-transform, translateY(60px) scale(1));
+      transition:
+        opacity var(--before-duration, 2000ms) ease var(--before-delay, 300ms),
+        transform var(--before-duration, 2000ms) ease var(--before-delay, 300ms);
+      will-change: opacity, transform;
+    }
+
+    [data-animate-after]::after {
+      content: "";
+      opacity: var(--after-opacity, 0);
+      transform: var(--after-transform, translateY(60px) scale(1));
+      transition:
+        opacity var(--after-duration, 2000ms) ease var(--after-delay, 300ms),
+        transform var(--after-duration, 2000ms) ease var(--after-delay, 300ms);
+      will-change: opacity, transform;
+    }
+  `,document.head.appendChild(t),v=!0}function w(t,e){e.pseudo?(e.pseudo==="before"&&t.setAttribute("data-animate-before","true"),e.pseudo==="after"&&t.setAttribute("data-animate-after","true"),t.style.setProperty(`--${e.pseudo}-opacity`,"0"),t.style.setProperty(`--${e.pseudo}-transform`,m(e.origin,e.distance,e.scale,e.rotate)),t.style.setProperty(`--${e.pseudo}-duration`,`${e.duration}ms`),t.style.setProperty(`--${e.pseudo}-delay`,`${e.delay}ms`)):(t.style.opacity="0",t.style.transform=m(e.origin,e.distance,e.scale,e.rotate),t.style.willChange="opacity, transform")}function A(t,e){e.pseudo?(t.style.setProperty(`--${e.pseudo}-opacity`,"1"),t.style.setProperty(`--${e.pseudo}-transform`,"translate(0,0) scale(1) rotateX(0) rotateY(0) rotateZ(0)"),t.style.setProperty(`--${e.pseudo}-duration`,`${e.duration}ms`),t.style.setProperty(`--${e.pseudo}-delay`,`${e.delay}ms`)):(t.style.transition=`opacity ${e.duration}ms ease ${e.delay}ms, transform ${e.duration}ms ease ${e.delay}ms`,t.style.opacity="1",t.style.transform="translate(0,0) scale(1) rotateX(0) rotateY(0) rotateZ(0)")}function S(t,e){e.pseudo?(t.style.setProperty(`--${e.pseudo}-opacity`,"0"),t.style.setProperty(`--${e.pseudo}-transform`,m(e.origin,e.distance,e.scale,e.rotate))):(t.style.opacity="0",t.style.transform=m(e.origin,e.distance,e.scale,e.rotate))}function X(t={}){var g,x,h;const e={origin:t.origin??i.origin,distance:t.distance??i.distance,duration:t.duration??i.duration,delay:t.delay??i.delay,reset:t.reset??i.reset,pseudo:t.pseudo??null,scale:t.scale??i.scale,rotate:{x:((g=t.rotate)==null?void 0:g.x)!==void 0?t.rotate.x:i.rotate.x,y:((x=t.rotate)==null?void 0:x.y)!==void 0?t.rotate.y:i.rotate.y,z:((h=t.rotate)==null?void 0:h.z)!==void 0?t.rotate.z:i.rotate.z}};let r=null;const n=new Map;function s(l){return l==="before"?"element-before":l==="after"?"element-after":"element"}function $(l,a={}){if(typeof document>"u")return;const z=document.querySelectorAll(l);z.length&&(E(),r||(r=new IntersectionObserver(d=>{d.forEach(c=>{const f=c.target,o=n.get(f);o&&o.forEach((y,u)=>{c.isIntersecting?(requestAnimationFrame(()=>A(f,y)),y.reset||(o.delete(u),o.size===0&&(r==null||r.unobserve(f),n.delete(f)))):y.reset&&S(f,y)})})},{threshold:.1})),z.forEach(d=>{var y,u,P;const c={origin:a.origin??e.origin,distance:a.distance??e.distance,duration:a.duration??e.duration,delay:a.delay??e.delay,reset:a.reset??e.reset,pseudo:a.pseudo??e.pseudo,scale:a.scale??e.scale,rotate:{x:((y=a.rotate)==null?void 0:y.x)!==void 0?a.rotate.x:e.rotate.x,y:((u=a.rotate)==null?void 0:u.y)!==void 0?a.rotate.y:e.rotate.y,z:((P=a.rotate)==null?void 0:P.z)!==void 0?a.rotate.z:e.rotate.z}},f=s(c.pseudo);let o=n.get(d);o||(o=new Map,n.set(d,o)),o.set(f,c),w(d,c),r&&!r.root&&!Array.from(r._targetElements||[]).includes(d)&&r.observe(d)}))}return Y(()=>{r==null||r.disconnect(),r=null,n.clear()}),{animate:$}}export{X as u};
