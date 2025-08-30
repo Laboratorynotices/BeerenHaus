@@ -50,7 +50,34 @@
       "type": "products",
       "menuName": "Produkte",
       "props": {
-        "title": "Unsere Produkte"
+        "title": "Unsere Produkte",
+        "products": [
+          {
+            "name": "Erdbeeren",
+            "imageName": "strawberries.png",
+            "price": 19.9
+          },
+          {
+            "name": "Blaubeeren",
+            "imageName": "blueberries.png",
+            "price": 24.5
+          },
+          {
+            "name": "Himbeeren",
+            "imageName": "raspberries.png",
+            "price": 22.0
+          },
+          {
+            "name": "Preiselbeeren",
+            "imageName": "lingonberries.png",
+            "price": 22.0
+          },
+          {
+            "name": "Brombeere",
+            "imageName": "blackberries.png",
+            "price": 18.59
+          }
+        ]
       }
     },
     {

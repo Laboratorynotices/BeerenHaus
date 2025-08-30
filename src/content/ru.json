@@ -49,7 +49,34 @@
       "type": "products",
       "menuName": "Продукты",
       "props": {
-        "title": "Наши продукты"
+        "title": "Наши продукты",
+        "products": [
+          {
+            "name": "Клубника",
+            "imageName": "strawberries.png",
+            "price": 19.9
+          },
+          {
+            "name": "Черника",
+            "imageName": "blueberries.png",
+            "price": 24.5
+          },
+          {
+            "name": "Малина",
+            "imageName": "raspberries.png",
+            "price": 22.0
+          },
+          {
+            "name": "Брусника",
+            "imageName": "lingonberries.png",
+            "price": 22.0
+          },
+          {
+            "name": "Ежевика",
+            "imageName": "blackberries.png",
+            "price": 18.59
+          }
+        ]
       }
     },
     {

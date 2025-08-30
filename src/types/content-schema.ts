@@ -105,14 +105,48 @@ export const AboutBlockSchema = z.object({
 
 export type AboutBlock = z.infer<typeof AboutBlockSchema>;
 
-// ProductsBlock
-export const ProductsBlockSchema = z.object({
-  type: z.literal("products"),
-  menuName: z.string().optional(),
-  props: z.object({
-    title: z.string(),
-  }),
+// ==========================
+//  RequestedProduct - отдельный продукт из списка спрашиваемых
+// ==========================
+export const RequestedProductSchema = z.object({
+  // Название продукта
+  name: z.string(),
+  // Имя файла с изображением продукта
+  imageName: z.string(),
+  // Цена продукта
+  price: z.number(),
 });
+
+export type RequestedProduct = z.infer<typeof RequestedProductSchema>;
+
+// ==========================
+// ProductBlockProps - параметры блока (спрашиваемые) "Продукты"
+// ==========================
+export const ProductBlockPropsSchema = z.object({
+  // Заголовок блока (например: "Наши продукты")
+  title: z.string(),
+
+  // Список популярных товаров
+  products: z.array(RequestedProductSchema),
+});
+
+export type ProductBlockProps = z.infer<typeof ProductBlockPropsSchema>;
+
+// ==========================
+// ProductsBlock - Блок (спрашиваемые) "Продукты"
+// ==========================
+export const ProductsBlockSchema = z.object({
+  // Тип блока всегда фиксирован как "products"
+  type: z.literal("products"),
+
+  // Название меню, может быть опциональным
+  menuName: z.string().optional(),
+
+  // Основные параметры блока
+  props: ProductBlockPropsSchema,
+});
+
+export type ProductsBlock = z.infer<typeof ProductsBlockSchema>;
 
 // ContactBlock
 export const ContactBlockSchema = z.object({
