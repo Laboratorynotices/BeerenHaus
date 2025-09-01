@@ -193,6 +193,12 @@ export const ContactItemSchema = z.union([
 export type ContactItem = z.infer<typeof ContactItemSchema>;
 
 // ==========================
+// ContactItemList - список контактных элементов
+// ==========================
+export const ContactItemListSchema = z.array(ContactItemSchema);
+export type ContactItemList = z.infer<typeof ContactItemListSchema>;
+
+// ==========================
 // ContactBlockProps - параметры блока "Контакты"
 // ==========================
 export const ContactBlockPropsSchema = z.object({
@@ -200,16 +206,10 @@ export const ContactBlockPropsSchema = z.object({
   title: z.string(),
 
   // Список контактных секций (соцсети, адрес, телефоны, часы работы)
-  contactData: z.array(ContactItemSchema),
+  contactData: ContactItemListSchema,
 });
 
 export type ContactBlockProps = z.infer<typeof ContactBlockPropsSchema>;
-
-// ==========================
-// ContactItemList - список контактных элементов
-// ==========================
-export const ContactItemListSchema = z.array(ContactItemSchema);
-export type ContactItemList = z.infer<typeof ContactItemListSchema>;
 
 // ==========================
 // ContactColumns - Столбик блока "Контакты"
