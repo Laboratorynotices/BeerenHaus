@@ -83,7 +83,42 @@
       "type": "contact",
       "menuName": "Контакты",
       "props": {
-        "title": "Свяжитесь с нами"
+        "title": "Свяжитесь с нами",
+        "contactData": [
+          {
+            "type": "sociales",
+            "title": "Напиши нам",
+            "data": [
+              {
+                "socialNetwork": "whatsapp",
+                "url": "#"
+              },
+              {
+                "socialNetwork": "instagram",
+                "url": "#"
+              },
+              {
+                "socialNetwork": "facebook",
+                "url": "#"
+              }
+            ]
+          },
+          {
+            "type": "address",
+            "title": "Адрес",
+            "data": ["Marktplatz 5", "77777 Großstadt"]
+          },
+          {
+            "type": "address",
+            "title": "Телефон",
+            "data": ["+49 123 444-1", "+49 123 555-1"]
+          },
+          {
+            "type": "address",
+            "title": "Часы работы",
+            "data": ["С понедельника по субботу", "С 9:00 до 21:00"]
+          }
+        ]
       }
     },
     {

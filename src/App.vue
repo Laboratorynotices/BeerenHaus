@@ -76,6 +76,7 @@ const componentsMap: Record<string, () => Promise<any>> = {
   popular: () => import("./components/PopularSection/PopularSection.vue"),
   about: () => import("./components/AboutSection/AboutSection.vue"),
   products: () => import("./components/ProductSection/ProductSection.vue"),
+  contact: () => import("./components/ContactSection/ContactSection.vue"),
   // Добавьте другие компоненты по мере необходимости
 };
 

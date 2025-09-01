@@ -84,7 +84,42 @@
       "type": "contact",
       "menuName": "Contact",
       "props": {
-        "title": "Contact Us"
+        "title": "Contact Us",
+        "contactData": [
+          {
+            "type": "sociales",
+            "title": "Write us",
+            "data": [
+              {
+                "socialNetwork": "whatsapp",
+                "url": "#"
+              },
+              {
+                "socialNetwork": "instagram",
+                "url": "#"
+              },
+              {
+                "socialNetwork": "facebook",
+                "url": "#"
+              }
+            ]
+          },
+          {
+            "type": "address",
+            "title": "Location",
+            "data": ["Marktplatz 5", "77777 Großstadt"]
+          },
+          {
+            "type": "address",
+            "title": "Delivery",
+            "data": ["+49 123 444-2", "+49 123 555-2"]
+          },
+          {
+            "type": "address",
+            "title": "Attention",
+            "data": ["Monday - Saturday", "9AM - 9PM"]
+          }
+        ]
       }
     },
     {

@@ -148,14 +148,96 @@ export const ProductsBlockSchema = z.object({
 
 export type ProductsBlock = z.infer<typeof ProductsBlockSchema>;
 
-// ContactBlock
-export const ContactBlockSchema = z.object({
-  type: z.literal("contact"),
-  menuName: z.string().optional(),
-  props: z.object({
-    title: z.string(),
-  }),
+// ==========================
+// ContactSocial: Список социальных сетей
+// ==========================
+export const ContactSocialSchema = z.object({
+  // Тип "социальные сети"
+  type: z.literal("sociales"),
+  // Заголовок
+  title: z.string(),
+  data: z.array(
+    z.object({
+      socialNetwork: z.string(),
+      url: z.string(),
+    }),
+  ),
 });
+
+export type ContactSocialType = z.infer<typeof ContactSocialSchema>;
+
+// ==========================
+// ContactAddress: Адрес, Телефон, время работы
+// ==========================
+export const ContactAddressSchema = z.object({
+  // Тип "адрес"
+  type: z.literal("address"),
+  // Заголовок
+  title: z.string(),
+  data: z.array(
+    // Просто одна строчка
+    z.string(),
+  ),
+});
+
+export type ContactAddressType = z.infer<typeof ContactAddressSchema>;
+
+// ==========================
+// Contact item (union)
+// ==========================
+export const ContactItemSchema = z.union([
+  ContactSocialSchema,
+  ContactAddressSchema,
+]);
+
+export type ContactItem = z.infer<typeof ContactItemSchema>;
+
+// ==========================
+// ContactBlockProps - параметры блока "Контакты"
+// ==========================
+export const ContactBlockPropsSchema = z.object({
+  // Заголовок блока (например: "Свяжитесь с нами")
+  title: z.string(),
+
+  // Список контактных секций (соцсети, адрес, телефоны, часы работы)
+  contactData: z.array(ContactItemSchema),
+});
+
+export type ContactBlockProps = z.infer<typeof ContactBlockPropsSchema>;
+
+// ==========================
+// ContactItemList - список контактных элементов
+// ==========================
+export const ContactItemListSchema = z.array(ContactItemSchema);
+export type ContactItemList = z.infer<typeof ContactItemListSchema>;
+
+// ==========================
+// ContactColumns - Столбик блока "Контакты"
+// ==========================
+export const ContactColumnsSchema = z.tuple([
+  // Левая колонка (массив элементов контактов)
+  ContactItemListSchema,
+  // Правая колонка (массив элементов контактов)
+  ContactItemListSchema,
+]);
+
+export type ContactColumns = z.infer<typeof ContactColumnsSchema>;
+
+// ==========================
+// ContactBlock - Блок "Контакты"
+// ==========================
+export const ContactBlockSchema = z.object({
+  // Тип блока всегда фиксирован как "contact"
+  type: z.literal("contact"),
+
+  // Название меню, может быть опциональным
+  menuName: z.string().optional(),
+
+  // Основные параметры блока
+  props: ContactBlockPropsSchema,
+});
+
+export type ContactBlock = z.infer<typeof ContactBlockSchema>;
 
 // FooterBlock
 export const FooterBlockSchema = z.object({

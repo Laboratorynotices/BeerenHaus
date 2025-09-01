@@ -116,6 +116,10 @@ h4 {
   @apply font-saira font-[number:var(--font-medium)] leading-[110%];
 }
 
+address {
+  @apply not-italic;
+}
+
 /* ======== Переиспользуемые классы ======== */
 /* Контейнер для обёртки контента 
 @TODO Заменить на .container от Tailwind?
@@ -629,6 +633,65 @@ h4 {
             right-5 bottom-6
             w-8;
           }
+        }
+      }
+    }
+  }
+}
+
+.contact {
+  @apply bg-accent-tertiary dark:bg-accent-tertiary-dark;
+
+  & .wrap-container {
+    & .contact__container {
+      @apply flex flex-col md:flex-row gap-y-8 gap-[var(--contact-vertical-gap)] items-center;
+
+      & .contact__info {
+        @apply flex flex-col gap-y-8
+        md:basis-1/4 lg:basis-1/3
+        text-center;
+
+        &.column-1 {
+          @apply md:order-1;
+        }
+
+        & .contact__data {
+          & .contact__title {
+            @apply text-hl-size mb-2;
+          }
+
+          & .contact__social {
+            @apply flex flex-row justify-center gap-x-4;
+
+            & .contact__social-link {
+              @apply text-hl-size;
+
+              & svg {
+                @apply h-[var(--text-hl-size)];
+              }
+            }
+          }
+
+          & .contact__address {
+            & span {
+              @apply block;
+            }
+          }
+        }
+      }
+
+      & .contact__images {
+        @apply md:basis-1/2 lg:basis-1/3;
+
+        &.shaped::before {
+          clip-path: inset(0 0 0 0);
+        }
+
+        & .contact__image {
+          --vertical-shift: clamp(2rem, 10vw, 6rem);
+          @apply relative bottom-[var(--vertical-shift)]
+          w-[70%] mx-auto mt-[var(--vertical-shift)]
+          mask-b-from-80%;
         }
       }
     }
