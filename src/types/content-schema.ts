@@ -149,6 +149,24 @@ export const ProductsBlockSchema = z.object({
 export type ProductsBlock = z.infer<typeof ProductsBlockSchema>;
 
 // ==========================
+// SocialItem - общий элемент социальной сети (для контактов и футера)
+// ==========================
+export const SocialItemSchema = z.object({
+  // Название социальной сети
+  socialNetwork: z.string(),
+  // Адрес
+  url: z.string(),
+});
+
+export type SocialItem = z.infer<typeof SocialItemSchema>;
+
+// ==========================
+// SocialData - общие данные социальных сетей
+// ==========================
+export const SocialDataSchema = z.array(SocialItemSchema);
+export type SocialDataType = z.infer<typeof SocialDataSchema>;
+
+// ==========================
 // ContactSocial: Список социальных сетей
 // ==========================
 export const ContactSocialSchema = z.object({
@@ -156,12 +174,8 @@ export const ContactSocialSchema = z.object({
   type: z.literal("sociales"),
   // Заголовок
   title: z.string(),
-  data: z.array(
-    z.object({
-      socialNetwork: z.string(),
-      url: z.string(),
-    }),
-  ),
+  // Список социальных сетей
+  data: SocialDataSchema,
 });
 
 export type ContactSocialType = z.infer<typeof ContactSocialSchema>;
@@ -239,13 +253,58 @@ export const ContactBlockSchema = z.object({
 
 export type ContactBlock = z.infer<typeof ContactBlockSchema>;
 
-// FooterBlock
+// ==========================
+// FooterSocialSection - секция социальных сетей
+// ==========================
+export const FooterSocialSectionSchema = z.object({
+  title: z.string(),
+  data: SocialDataSchema, // ← Используем общую схему
+});
+
+export type FooterSocialSection = z.infer<typeof FooterSocialSectionSchema>;
+
+// ==========================
+// FooterPaymentItem - элемент способа оплаты в футере
+// ==========================
+export const FooterPaymentItemSchema = z.object({
+  paymentMethod: z.string(),
+});
+
+// ==========================
+// PaymentData - общие данные способов оплаты
+// ==========================
+export const PaymentDataSchema = z.array(FooterPaymentItemSchema);
+export type PaymentDataType = z.infer<typeof PaymentDataSchema>;
+
+// ==========================
+// FooterPaymentSection - секция способов оплаты
+// ==========================
+export const FooterPaymentSectionSchema = z.object({
+  title: z.string(),
+  data: PaymentDataSchema, // ← Используем общую схему
+});
+
+export type FooterPaymentSection = z.infer<typeof FooterPaymentSectionSchema>;
+
+// ==========================
+// FooterBlockProps - параметры блока футера
+// ==========================
+export const FooterBlockPropsSchema = z.object({
+  social: FooterSocialSectionSchema,
+  payment: FooterPaymentSectionSchema,
+});
+
+export type FooterBlockPropsType = z.infer<typeof FooterBlockPropsSchema>;
+
+// ==========================
+// FooterBlock - Блок подвала сайта
+// ==========================
 export const FooterBlockSchema = z.object({
   type: z.literal("footer"),
-  props: z.object({
-    title: z.string(),
-  }),
+  props: FooterBlockPropsSchema,
 });
+
+export type FooterBlockType = z.infer<typeof FooterBlockSchema>;
 
 // ... другие блоки
 

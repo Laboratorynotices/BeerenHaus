@@ -120,6 +120,10 @@ address {
   @apply not-italic;
 }
 
+*:focus {
+  @apply outline-none;
+}
+
 /* ======== Переиспользуемые классы ======== */
 /* Контейнер для обёртки контента 
 @TODO Заменить на .container от Tailwind?
@@ -176,6 +180,22 @@ address {
 .shaped,
 .shaped img {
   @apply relative;
+}
+
+/*
+  Изменение цветов иконок
+*/
+svg {
+  & path,
+  rect,
+  circle,
+  .fill-text {
+    @apply fill-text-primary dark:fill-text-primary-dark;
+  }
+
+  & .fill-background {
+    @apply fill-background-primary dark:fill-background-primary-dark;
+  }
 }
 
 /* ======== Стили компонентов ======== */
@@ -695,6 +715,71 @@ address {
         }
       }
     }
+  }
+}
+
+.footer {
+  @apply bg-background-secondary dark:bg-background-secondary-dark
+  py-16;
+
+  & .wrap-container {
+    @apply flex flex-col flex-wrap md:flex-row
+     gap-6 gap-x-12;
+
+    & .footer__block {
+      @apply flex-1 min-w-0;
+
+      &.form-block {
+        @apply basis-full
+        md:px-[calc(33.33vw/2)]
+        lg:px-[25vw];
+      }
+
+      & .footer__title {
+        @apply mb-4 text-h2-size
+        md:text-center;
+      }
+
+      & .footer__social,
+      .footer__payment {
+        @apply flex flex-row gap-4
+        md:w-fit md:mx-auto;
+
+        & .footer__social-link,
+        .footer__payment-link {
+          & svg {
+            @apply h-6;
+
+            & .fill-background {
+              @apply fill-background-secondary dark:fill-background-secondary-dark;
+            }
+          }
+        }
+      }
+
+      & .footer__form {
+        @apply bg-accent-tertiary dark:bg-accent-tertiary-dark
+        flex gap-4
+        p-2;
+
+        & > * {
+          @apply w-full;
+        }
+
+        & input {
+          @apply pl-3 font-[var(--font-semi-bold)]
+          text-text-primary dark:text-text-primary-dark;
+        }
+
+        & .button {
+          @apply px-6 md:w-auto;
+        }
+      }
+    }
+  }
+
+  & .footer__copyrights {
+    @apply block mx-auto w-fit mt-16;
   }
 }
 

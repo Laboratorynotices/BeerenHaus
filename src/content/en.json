@@ -125,7 +125,40 @@
     {
       "type": "footer",
       "props": {
-        "title": "Contact Information"
+        "social": {
+          "title": "Social",
+          "data": [
+            {
+              "socialNetwork": "facebook",
+              "url": "#"
+            },
+            {
+              "socialNetwork": "instagram",
+              "url": "#"
+            },
+            {
+              "socialNetwork": "x",
+              "url": "#"
+            }
+          ]
+        },
+        "payment": {
+          "title": "Payment Methods",
+          "data": [
+            {
+              "paymentMethod": "Credit card"
+            },
+            {
+              "paymentMethod": "Debit card"
+            },
+            {
+              "paymentMethod": "Digital wallet"
+            },
+            {
+              "paymentMethod": "Bank transfer"
+            }
+          ]
+        }
       }
     }
   ]

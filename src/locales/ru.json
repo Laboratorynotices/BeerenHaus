@@ -7,7 +7,7 @@
   "Switch language": "Сменить язык",
   "switch to en": "Переключиться на английский",
   "russian": "Русский",
-  "Hero section: Fresh berries": "Раздел \"героя\": Свежие ягоды",
+  "Hero section: Fresh berries": "Раздел «баннер»: Свежие ягоды",
   "Cup with berries": "Стаканчик с ягодами",
   "Learn More": "Узнать больше",
   "Popular section": "Раздел популярных товаров",
@@ -17,5 +17,14 @@
   "A rustic basket full of berries": "Котомка с ягодами",
   "Product section": "Раздел с товарами",
   "Contact section": "Раздел с контактами",
-  "contact image": "Картика раздела с контактами"
+  "contact image": "Картинка раздела с контактами",
+  "Footer section": "Нижняя часть сайта",
+  "Credit card": "Кредитная карточка",
+  "Debit card": "Дебетовая карта",
+  "Digital wallet": "Электронный кошелёк",
+  "Bank transfer": "Банковский перевод",
+  "Subscribe For Discounts": "Подписаться на скидки",
+  "Email": "Email",
+  "Subscribe": "Подписаться",
+  "© All Rights Reserved": "Все права защищены"
 }

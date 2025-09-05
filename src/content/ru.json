@@ -124,7 +124,40 @@
     {
       "type": "footer",
       "props": {
-        "title": "Контактная информация"
+        "social": {
+          "title": "Социальные сети",
+          "data": [
+            {
+              "socialNetwork": "facebook",
+              "url": "#"
+            },
+            {
+              "socialNetwork": "instagram",
+              "url": "#"
+            },
+            {
+              "socialNetwork": "x",
+              "url": "#"
+            }
+          ]
+        },
+        "payment": {
+          "title": "Виды оплат",
+          "data": [
+            {
+              "paymentMethod": "Credit card"
+            },
+            {
+              "paymentMethod": "Debit card"
+            },
+            {
+              "paymentMethod": "Digital wallet"
+            },
+            {
+              "paymentMethod": "Bank transfer"
+            }
+          ]
+        }
       }
     }
   ]

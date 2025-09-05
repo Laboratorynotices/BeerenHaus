@@ -10,11 +10,17 @@ import {
 
 // Импортируем шапку приложения
 import AppHeader from "./components/AppHeader/AppHeader.vue";
+// Импортируем подвал приложения
+import FooterSection from "./components/FooterSection/FooterSection.vue";
 
 // Работаем с локализацией
 import { switchToNextLocale, getSavedLocale } from "./i18n";
 
 // Импортируем функции для работы с контентом
+import {
+  type FooterBlockType,
+  FooterBlockSchema,
+} from "./types/content-schema";
 import { useContent } from "./composables/useContent";
 const { content, fetchContent } = useContent();
 
@@ -83,12 +89,42 @@ const componentsMap: Record<string, () => Promise<any>> = {
 // Добавляем компонент по умолчанию
 const fallback = () => import("./components/Fallback.vue");
 
-// Добавляем компоненты по типам блоков
+/**
+ * Последний блок контента, который является футером.
+ * Берём последний объект из массива blocks, если он есть,
+ * и приводим его к типу FooterBlockType.
+ *
+ * Если массив пустой или последний блок не футер — возвращаем null.
+ */
+const footerContent = computed<FooterBlockType | null>(() => {
+  const blocks = content.value?.blocks;
+  if (!blocks || blocks.length === 0) return null;
+
+  const lastBlock = blocks[blocks.length - 1];
+  // Возврат с Type guards
+  return FooterBlockSchema.safeParse(lastBlock).success
+    ? (lastBlock as FooterBlockType)
+    : null;
+});
+
+/**
+ * Массив асинхронных компонентов для рендера.
+ * Берём все блоки контента кроме последнего (footer),
+ * и сопоставляем каждому блоку:
+ *   - уникальный id
+ *   - тип блока
+ *   - название для меню (если есть)
+ *   - props (если есть)
+ *   - асинхронный компонент (по карте componentsMap или fallback)
+ */
 const asyncComponents = computed(() => {
   if (!content.value?.blocks) return [];
 
-  return content.value.blocks.map((block, index) => ({
-    id: `${block.type}-${index}`, // уникальный ключ
+  // Отбрасываем последний (footer)
+  const blocks = content.value.blocks.slice(0, -1);
+
+  return blocks.map((block, index) => ({
+    id: `${block.type}-${index}`,
     type: block.type,
     menuName: "menuName" in block ? block.menuName : undefined,
     props: "props" in block ? block.props : undefined,
@@ -133,6 +169,8 @@ watchEffect(async () => {
       :id="block.type + id"
     />
   </main>
+
+  <FooterSection v-if="footerContent?.props" :content="footerContent?.props" />
 
   <!-- @TODO: Этот якорь удалить по окончании разработки -->
   <div id="tail">
