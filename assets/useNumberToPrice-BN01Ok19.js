@@ -1,0 +1,1 @@
+function o(){const t=new Intl.NumberFormat("de-DE",{useGrouping:!0,minimumFractionDigits:2,maximumFractionDigits:2}),e=r=>{if(r==null)return null;if(typeof r=="string"){const n=r.replace(/\s+/g,"").replace(",",".");r=Number(n)}return Number.isFinite(r)?r:null};return{numberToPrice:r=>{const n=e(r);return n===null?"":t.format(n)}}}export{o as u};
