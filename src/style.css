@@ -159,6 +159,10 @@ address {
   }
 }
 
+.field__error {
+  @apply border-1 border-accent-primary dark:border-accent-primary-dark;
+}
+
 /*
   Класс для создания фигурного края у секций
 */
