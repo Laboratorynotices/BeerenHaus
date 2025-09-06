@@ -265,7 +265,7 @@ svg {
 
             /* Стили для активной ссылки */
             &.active-link {
-              @apply text-text-secondary dark:text-text-secondary-dark;
+              @apply text-accent-primary dark:text-accent-primary-dark;
             }
 
             /* Стили для hover */
