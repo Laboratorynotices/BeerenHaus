@@ -787,6 +787,19 @@ svg {
   }
 }
 
+.scrollup {
+  @apply fixed
+  right-4 -bottom-2/4
+  bg-accent-tertiary dark:bg-accent-tertiary-dark
+  shadow-md/80
+  p-1.5
+  transition-[bottom] duration-[0.4s];
+
+  &.show_scrollup {
+    @apply bottom-12;
+  }
+}
+
 /* ======== Удаляемые стили ======== */
 
 /* @TODO: Макет - удалить, когда не будет нужен */

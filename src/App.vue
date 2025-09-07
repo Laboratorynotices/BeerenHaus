@@ -12,6 +12,8 @@ import {
 import AppHeader from "./components/AppHeader/AppHeader.vue";
 // Импортируем подвал приложения
 import FooterSection from "./components/FooterSection/FooterSection.vue";
+// Импортируем кнопку прокрутки наверх
+import ScrollUp from "./components/ScrollUp/ScrollUp.vue";
 
 // Работаем с локализацией
 import { switchToNextLocale, getSavedLocale } from "./i18n";
@@ -200,6 +202,8 @@ watchEffect(async () => {
   </main>
 
   <FooterSection v-if="footerContent?.props" :content="footerContent?.props" />
+
+  <ScrollUp />
 
   <!-- @TODO: Этот якорь удалить по окончании разработки -->
   <div id="tail">
