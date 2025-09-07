@@ -793,10 +793,14 @@ svg {
   bg-accent-tertiary dark:bg-accent-tertiary-dark
   shadow-md/80
   p-1.5
-  transition-[bottom] duration-[0.4s];
+  transition-[bottom] transition-[translate] duration-[0.4s];
 
   &.show_scrollup {
     @apply bottom-12;
+  }
+
+  &:hover {
+    @apply translate-y-[-0.5rem];
   }
 }
 
