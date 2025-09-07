@@ -22,7 +22,14 @@ import {
   FooterBlockSchema,
 } from "./types/content-schema";
 import { useContent } from "./composables/useContent";
+
+// Импортируем компосабл для отслеживания активной секции
+import { useActiveSection } from "./composables/useActiveSection";
+
 const { content, fetchContent } = useContent();
+
+// Используем единственный экземпляр компосабла (singleton)
+const { startAutoObserving, cleanup, forceUpdate } = useActiveSection();
 
 /*  Чтобы элементы не прятались в самом начале за меню,
     у следующего элемента добавляем расстояние.  */
@@ -143,17 +150,39 @@ onMounted(() => {
 
   // Устанавливаем атрибут lang на элементе <html> для корректной семантики
   document.documentElement.lang = getSavedLocale();
+
+  // Запускаем базовое наблюдение (без ожидания конкретных секций)
+  startAutoObserving();
 });
 
 // Удаляем обработчики событий при размонтировании
 onUnmounted(() => {
   window.removeEventListener("resize", updateMainMarginTop);
   window.removeEventListener("scroll", headerShadow);
+  // Очищаем ресурсы компосабла
+  cleanup();
 });
 
 // Следим за локалью и перезагружаем контент
 watchEffect(async () => {
   await fetchContent();
+
+  // Получаем ожидаемые типы секций из контента
+  const expectedSections =
+    content.value?.blocks
+      ?.slice(0, -1) // Исключаем footer
+      ?.map((block) => block.type) || [];
+
+  // После загрузки контента запускаем наблюдение с ожиданием секций
+  if (expectedSections.length > 0) {
+    setTimeout(() => {
+      startAutoObserving(expectedSections);
+      // Дополнительно принудительно обновляем после смены контента
+      setTimeout(() => {
+        forceUpdate();
+      }, 1000);
+    }, 500);
+  }
 });
 </script>
 

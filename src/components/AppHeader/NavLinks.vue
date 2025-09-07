@@ -1,7 +1,13 @@
 <script setup lang="ts">
 // Импортируем функции для работы с контентом
 import { useContent } from "../../composables/useContent";
+// Импортируем компосабл для отслеживания активной секции
+import { useActiveSection } from "../../composables/useActiveSection";
+
 const { menuItems } = useContent();
+
+// Используем единственный экземпляр компосабла (singleton)
+const { scrollToSection, isActive } = useActiveSection();
 
 // Определяем пропсы для компонента
 defineProps({
@@ -10,6 +16,14 @@ defineProps({
     required: true,
   },
 });
+
+/**
+ * Обработчик клика по ссылке навигации
+ */
+const handleNavClick = (event: Event, itemType: string) => {
+  event.preventDefault();
+  scrollToSection(itemType);
+};
 </script>
 
 <template>
@@ -30,7 +44,10 @@ defineProps({
         <a
           :href="'#' + item.type"
           class="nav__link"
-          :class="id === 0 ? 'active-link' : ''"
+          :class="{
+            'active-link': isActive(item.type === 'app' ? 'hero0' : item.type),
+          }"
+          @click="handleNavClick($event, item.type)"
         >
           <!-- Если это "Home", используем перевод, иначе просто имя меню -->
           {{ item.menuName == "Home" ? $t("Home") : item.menuName }}
