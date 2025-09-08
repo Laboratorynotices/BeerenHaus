@@ -1,6 +1,10 @@
 // https://upload.wikimedia.org/wikipedia/commons/c/cc/X_icon.svg
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="-480 -466.815 2160 2160">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="-480 -466.815 2160 2160"
+    aria-label="X"
+  >
     <circle cx="600" cy="613.185" r="1080" />
     <path
       class="fill-background"

@@ -75,6 +75,7 @@ export function useCarousel(cloneSets = 3) {
       slides.forEach((slide) => {
         const cloneEnd = slide.cloneNode(true) as HTMLElement;
         cloneEnd.classList.add("clone");
+        cloneEnd.setAttribute("aria-hidden", "true");
         wrapperRef.value!.appendChild(cloneEnd);
       });
 
@@ -85,6 +86,7 @@ export function useCarousel(cloneSets = 3) {
         .forEach((slide) => {
           const cloneStart = slide.cloneNode(true) as HTMLElement;
           cloneStart.classList.add("clone");
+          cloneStart.setAttribute("aria-hidden", "true");
           wrapperRef.value!.insertBefore(
             cloneStart,
             wrapperRef.value!.firstChild,

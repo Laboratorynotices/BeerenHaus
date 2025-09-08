@@ -14,6 +14,8 @@ defineProps({
     class="header__toggle"
     :class="isOpen ? 'fixed right-[24px]' : 'relative'"
     :aria-label="$t('Open menu')"
+    :aria-expanded="isOpen"
+    aria-controls="nav-list"
   >
     <!-- Три полоски, которые превращаются в крестик -->
     <!-- Верхняя полоска -->
