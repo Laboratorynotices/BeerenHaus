@@ -16,7 +16,6 @@ defineProps({
 
 <template>
   <section
-    class="mock-up"
     :id="`desc-${id}`"
     role="region"
     :aria-label="`Block of type ${block.type}`"

@@ -204,10 +204,4 @@ watchEffect(async () => {
   <FooterSection v-if="footerContent?.props" :content="footerContent?.props" />
 
   <ScrollUp />
-
-  <!-- @TODO: Этот якорь удалить по окончании разработки -->
-  <div id="tail">
-    <p>{{ $t("hello") }}</p>
-    <button @click="switchToNextLocale">Switch language</button>
-  </div>
 </template>

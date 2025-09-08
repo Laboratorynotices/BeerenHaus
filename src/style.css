@@ -819,10 +819,3 @@ svg {
     @apply translate-y-[-0.5rem];
   }
 }
-
-/* ======== Удаляемые стили ======== */
-
-/* @TODO: Макет - удалить, когда не будет нужен */
-.mock-up {
-  @apply border p-10 mx-6 xl:mx-auto max-w-[var(--content-max-width)];
-}
