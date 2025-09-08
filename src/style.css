@@ -124,6 +124,22 @@ address {
   @apply outline-none;
 }
 
+/*=============== SCROLL BAR ===============*/
+/* Задний фон */
+::-webkit-scrollbar {
+  width: 0.6rem;
+  background-color: var(--color-accent-secondary);
+}
+
+/* Сам бегунок */
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent-tertiary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-accent-primary);
+}
+
 /* ======== Переиспользуемые классы ======== */
 /* Контейнер для обёртки контента 
 @TODO Заменить на .container от Tailwind?
