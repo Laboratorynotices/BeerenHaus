@@ -12,7 +12,7 @@ export const useMenuController = () => {
   const windowInnerWidthRem = useWindowInnerWidthRem();
 
   // Получаем доступ к константе через import.meta.env
-  const MD_BREAKPOINT: number = import.meta.env.MD_BREAKPOINT;
+  const LG_BREAKPOINT: number = import.meta.env.LG_BREAKPOINT;
 
   // Флаг для отслеживания состояния монтирования компонента
   const isMounted = ref(false);
@@ -32,8 +32,9 @@ export const useMenuController = () => {
       return true;
     }
 
-    // Если ширина окна меньше MD_BREAKPOINT, это мобильное устройство
-    return windowInnerWidthRem.windowWidthRem.value < MD_BREAKPOINT;
+    // Если ширина окна меньше LG_BREAKPOINT,
+    // то отображать меню мобильного устройства
+    return windowInnerWidthRem.windowWidthRem.value < LG_BREAKPOINT;
   });
 
   // Добавляем отслеживание изменений типа устройства

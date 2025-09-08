@@ -5,6 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 // Определяем константу MD_BREAKPOINT (rem) для использования в CSS и JavaScript
 // Значение 48rem соответствует 768px, что является стандартным значением для медиазапросов
 export const MD_BREAKPOINT = 48;
+// Значение 64rem соответствует 1024px, что является стандартным значением для медиазапросов
+export const LG_BREAKPOINT = 64;
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -21,6 +23,7 @@ export default defineConfig(({ mode }) => ({
         additionalData: `
           @theme {
             --md-breakpoint: ${MD_BREAKPOINT}rem;
+            --lg-breakpoint: ${LG_BREAKPOINT}rem;
           }
         `,
       },
